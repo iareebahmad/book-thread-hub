@@ -1,60 +1,63 @@
-@import '@fontsource/libre-baskerville/400.css';
-@import '@fontsource/libre-baskerville/700.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* BookThreads Design System - Literary & Elegant */
+/* BookThreads Design System - Modern GenZ Aesthetic */
 
 @layer base {
   :root {
-    /* Warm parchment backgrounds */
-    --background: 42 40% 96%;
-    --foreground: 25 25% 15%;
+    /* Dark, modern backgrounds with depth */
+    --background: 240 10% 8%;
+    --foreground: 0 0% 98%;
 
-    /* Card styling - like book pages */
-    --card: 40 35% 98%;
-    --card-foreground: 25 25% 15%;
+    /* Cards with glassmorphism effect */
+    --card: 240 8% 12%;
+    --card-foreground: 0 0% 98%;
 
     /* Popovers */
-    --popover: 40 35% 98%;
-    --popover-foreground: 25 25% 15%;
+    --popover: 240 8% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary - Deep burgundy (book binding) */
-    --primary: 0 45% 35%;
-    --primary-foreground: 40 35% 98%;
+    /* Primary - Electric purple/blue gradient vibe */
+    --primary: 270 80% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Muted parchment */
-    --secondary: 40 20% 90%;
-    --secondary-foreground: 25 25% 15%;
+    /* Secondary - Cool gray with slight purple tint */
+    --secondary: 240 5% 18%;
+    --secondary-foreground: 0 0% 98%;
 
-    /* Muted - Subtle backgrounds */
-    --muted: 40 25% 93%;
-    --muted-foreground: 25 15% 45%;
+    /* Muted - Subtle dark surfaces */
+    --muted: 240 6% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    /* Accent - Antique gold */
-    --accent: 38 70% 55%;
-    --accent-foreground: 25 25% 15%;
+    /* Accent - Vibrant cyan/turquoise */
+    --accent: 180 85% 55%;
+    --accent-foreground: 240 10% 8%;
 
-    /* Destructive */
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 40 35% 98%;
+    /* Destructive - Hot pink for drama */
+    --destructive: 340 85% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Borders - Soft sepia */
-    --border: 40 20% 85%;
-    --input: 40 20% 85%;
-    --ring: 0 45% 35%;
+    /* Borders - Subtle with glow potential */
+    --border: 240 5% 22%;
+    --input: 240 5% 22%;
+    --ring: 270 80% 65%;
 
-    /* Radius for elegant curves */
-    --radius: 0.75rem;
+    /* Modern, softer radius */
+    --radius: 1rem;
 
-    /* Shadows for depth */
-    --shadow-page: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+    /* Glowing shadows for depth */
+    --shadow-glow: 0 8px 32px rgba(138, 98, 255, 0.15);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 12px 48px rgba(138, 98, 255, 0.25);
 
-    /* Transitions */
-    --transition-page: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth, modern transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 65%), hsl(240 75% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(180 85% 55%), hsl(200 80% 60%));
+    --gradient-bg: linear-gradient(180deg, hsl(240 10% 8%), hsl(240 12% 10%));
   }
 }
 
@@ -65,46 +68,61 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    background: linear-gradient(180deg, hsl(240 10% 8%), hsl(240 12% 10%));
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Libre Baskerville', serif;
-    font-weight: 700;
+    @apply font-bold;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
-  /* Page turn animation */
-  .page-turn {
-    animation: pageTurn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Smooth slide-up animation */
+  .slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  @keyframes pageTurn {
+  @keyframes slideUp {
     0% {
       opacity: 0;
-      transform: translateY(20px) rotateX(-5deg);
+      transform: translateY(30px);
     }
     100% {
       opacity: 1;
-      transform: translateY(0) rotateX(0);
+      transform: translateY(0);
     }
   }
 
-  /* Hover lift effect */
+  /* Modern hover lift with glow */
   .hover-lift {
-    transition: var(--transition-page);
+    transition: var(--transition-smooth);
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-page);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
   }
 
-  /* Book page styling */
-  .book-page {
-    @apply bg-card rounded-lg shadow-sm border border-border;
+  /* Glassmorphism card styling */
+  .glass-card {
+    @apply bg-card/80 rounded-2xl border border-border/50;
+    backdrop-filter: blur(12px);
     box-shadow: var(--shadow-card);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effect */
+  .glow {
+    box-shadow: var(--shadow-glow);
   }
 }
 

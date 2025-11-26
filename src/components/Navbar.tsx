@@ -8,14 +8,14 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+    <nav className="border-b border-border/50 bg-card/60 backdrop-blur-xl sticky top-0 z-50 glow">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <button 
           onClick={() => navigate('/')}
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
           <BookOpen className="w-6 h-6 text-primary" />
-          <span className="text-xl font-serif font-bold text-foreground">BookThreads</span>
+          <span className="text-xl font-bold gradient-text">BookThreads</span>
         </button>
         
         {user && (
