@@ -19,7 +19,7 @@ export const BookCard = ({ book }: BookCardProps) => {
 
   return (
     <Card 
-      className="book-page hover-lift cursor-pointer overflow-hidden transition-all"
+      className="glass-card hover-lift cursor-pointer overflow-hidden transition-all"
       onClick={() => navigate(`/book/${book.id}`)}
     >
       <CardHeader className="p-0">
@@ -36,7 +36,7 @@ export const BookCard = ({ book }: BookCardProps) => {
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <h3 className="font-serif font-bold text-lg mb-1 line-clamp-2">{book.title}</h3>
+        <h3 className="font-bold text-lg mb-1 line-clamp-2">{book.title}</h3>
         <p className="text-sm text-muted-foreground mb-3">{book.author}</p>
         {book.description && (
           <p className="text-sm text-foreground/80 line-clamp-2">{book.description}</p>
