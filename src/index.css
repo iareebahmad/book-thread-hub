@@ -2,62 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* BookThreads Design System - Modern GenZ Aesthetic */
+/* BookThreads Design System - Calm + Trustworthy Blue Theme */
 
 @layer base {
   :root {
     /* Dark, modern backgrounds with depth */
-    --background: 240 10% 8%;
+    --background: 225 10% 8%;
     --foreground: 0 0% 98%;
 
     /* Cards with glassmorphism effect */
-    --card: 240 8% 12%;
+    --card: 225 8% 12%;
     --card-foreground: 0 0% 98%;
 
     /* Popovers */
-    --popover: 240 8% 12%;
+    --popover: 225 8% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary - Electric purple/blue gradient vibe */
-    --primary: 270 80% 65%;
+    /* Primary – Calm & Trustworthy Blue */
+    --primary: 215 85% 60%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Cool gray with slight purple tint */
-    --secondary: 240 5% 18%;
+    /* Secondary – Soft blue-gray for harmony */
+    --secondary: 220 6% 20%;
     --secondary-foreground: 0 0% 98%;
 
-    /* Muted - Subtle dark surfaces */
-    --muted: 240 6% 15%;
-    --muted-foreground: 240 5% 65%;
+    /* Muted – Text for low-emphasis UI */
+    --muted: 225 6% 15%;
+    --muted-foreground: 225 5% 65%;
 
-    /* Accent - Vibrant cyan/turquoise */
-    --accent: 180 85% 55%;
-    --accent-foreground: 240 10% 8%;
+    /* Accent – Light aqua blue for highlights */
+    --accent: 200 90% 65%;
+    --accent-foreground: 225 10% 8%;
 
-    /* Destructive - Hot pink for drama */
+    /* Destructive – Pink (unchanged) */
     --destructive: 340 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders - Subtle with glow potential */
-    --border: 240 5% 22%;
-    --input: 240 5% 22%;
-    --ring: 270 80% 65%;
+    /* Borders */
+    --border: 225 5% 22%;
+    --input: 225 5% 22%;
+    --ring: 215 85% 60%;
 
     /* Modern, softer radius */
     --radius: 1rem;
 
-    /* Glowing shadows for depth */
-    --shadow-glow: 0 8px 32px rgba(138, 98, 255, 0.15);
+    /* Glowing shadows – soft blue glow */
+    --shadow-glow: 0 8px 32px rgba(45, 130, 255, 0.15);
     --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.25);
-    --shadow-hover: 0 12px 48px rgba(138, 98, 255, 0.25);
+    --shadow-hover: 0 12px 48px rgba(45, 130, 255, 0.25);
 
-    /* Smooth, modern transitions */
+    /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(270 80% 65%), hsl(240 75% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(180 85% 55%), hsl(200 80% 60%));
-    --gradient-bg: linear-gradient(180deg, hsl(240 10% 8%), hsl(240 12% 10%));
+    --gradient-primary: linear-gradient(135deg, hsl(215 85% 60%), hsl(200 75% 58%));
+    --gradient-accent: linear-gradient(135deg, hsl(200 90% 65%), hsl(190 85% 60%));
+    --gradient-bg: linear-gradient(180deg, hsl(225 10% 8%), hsl(225 12% 10%));
   }
 }
 
@@ -68,11 +68,16 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(180deg, hsl(240 10% 8%), hsl(240 12% 10%));
+    background: linear-gradient(180deg, hsl(225 10% 8%), hsl(225 12% 10%));
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold;
     letter-spacing: -0.02em;
   }
@@ -99,7 +104,6 @@
   .hover-lift {
     transition: var(--transition-smooth);
   }
-
   .hover-lift:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-hover);
