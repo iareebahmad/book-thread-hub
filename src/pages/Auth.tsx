@@ -70,8 +70,14 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 page-turn">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 animated-bg">
+      <div className="floating-books">
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+      </div>
+      <div className="w-full max-w-md slide-up relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
             <BookOpen className="w-8 h-8 text-primary-foreground" />

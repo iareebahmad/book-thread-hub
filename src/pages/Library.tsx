@@ -122,17 +122,37 @@ const Library = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animated-bg">
+      <div className="floating-books">
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+        <div className="floating-book"></div>
+      </div>
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8 page-turn">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+      <main className="container mx-auto px-4 py-8 slide-up">
+        {/* Hero Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
           <div>
-            <h1 className="text-4xl font-serif font-bold text-foreground mb-2">The Library</h1>
-            <p className="text-muted-foreground">Discover and discuss your favorite books</p>
+            <h1 className="text-5xl font-bold text-foreground mb-3 gradient-text">The Library</h1>
+            <p className="text-muted-foreground text-lg">Discover and discuss your favorite books</p>
           </div>
           <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
         </div>
+
+        {/* About Section */}
+        <section className="glass-card p-8 mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">About BookThreads</h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+            Welcome to BookThreads, where every book sparks a conversation. We're building a community 
+            of passionate readers who believe that the best part of reading is sharing the experience.
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Dive into discussions, share your thoughts, and connect with fellow book lovers. Whether 
+            you're into fantasy, non-fiction, or anything in between, there's a thread waiting for you.
+          </p>
+        </section>
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -193,6 +213,13 @@ const Library = () => {
             ))}
           </div>
         )}
+
+        {/* Footer Tagline */}
+        <footer className="mt-16 py-8 text-center border-t border-border/50">
+          <p className="text-muted-foreground text-lg italic">
+            Of the readers, by a reader, for the readers
+          </p>
+        </footer>
       </main>
     </div>
   );
