@@ -67,9 +67,9 @@ const Auth = () => {
   return (
     <div className="relative min-h-screen w-screen overflow-hidden flex items-center justify-center">
 
-      {/* 🔥 Spline background */}
+      
       <Spline
-        scene="https://prod.spline.design/KjQTjXYpbR2Y-1hz/scene.splinecode"
+        scene="https://prod.spline.design/8Mq5Aiwmyyh60iiX/scene.splinecode"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
