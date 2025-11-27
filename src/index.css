@@ -128,6 +128,97 @@
   .glow {
     box-shadow: var(--shadow-glow);
   }
+
+  /* Animated background with sliding book pages */
+  .animated-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .animated-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(45, 130, 255, 0.05) 50%,
+      transparent 100%
+    );
+    animation: slidePages 8s ease-in-out infinite;
+  }
+
+  @keyframes slidePages {
+    0%, 100% {
+      left: -100%;
+      opacity: 0;
+    }
+    50% {
+      left: 100%;
+      opacity: 1;
+    }
+  }
+
+  /* Floating book animation */
+  .floating-books {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  .floating-book {
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(135deg, hsl(215 85% 60%), hsl(200 75% 58%));
+    border-radius: 4px;
+    animation: float 15s ease-in-out infinite;
+  }
+
+  .floating-book:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .floating-book:nth-child(2) {
+    top: 60%;
+    left: 80%;
+    animation-delay: 3s;
+  }
+
+  .floating-book:nth-child(3) {
+    top: 30%;
+    left: 60%;
+    animation-delay: 6s;
+  }
+
+  .floating-book:nth-child(4) {
+    top: 80%;
+    left: 20%;
+    animation-delay: 9s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    25% {
+      opacity: 0.03;
+    }
+    50% {
+      transform: translateY(-30px) rotate(5deg);
+      opacity: 0.05;
+    }
+    75% {
+      opacity: 0.03;
+    }
+  }
 }
 
 @layer base {
