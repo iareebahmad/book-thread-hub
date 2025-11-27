@@ -2,7 +2,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { BookOpen, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { UserSettings } from './UserSettings';
 
 export const Navbar = () => {
   const { user, signOut } = useAuth();
@@ -20,11 +19,10 @@ export const Navbar = () => {
         </button>
         
         {user && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground hidden sm:inline">
               Welcome back!
             </span>
-            <UserSettings />
             <Button
               variant="outline"
               size="sm"
