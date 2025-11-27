@@ -13,6 +13,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [scrollY, setScrollY] = useState(0);
   const { signUp, signIn, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -22,6 +23,15 @@ const Auth = () => {
       navigate('/');
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,6 +87,13 @@ const Auth = () => {
         <div className="floating-book"></div>
         <div className="floating-book"></div>
       </div>
+      
+      {/* Book Opening Animation */}
+      <div className={`book-opening ${scrollY > 50 ? 'visible' : ''}`}>
+        <div className="book-page book-page-left"></div>
+        <div className="book-page book-page-right"></div>
+      </div>
+
       <div className="w-full max-w-md slide-up relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
