@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
+import Spline from "@splinetool/react-spline";   // ⬅️ added
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -18,14 +19,11 @@ const Auth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
+    if (user) navigate('/');
   }, [user, navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!username.trim()) {
       toast({
         title: "Username required",
@@ -34,9 +32,7 @@ const Auth = () => {
       });
       return;
     }
-
     const { error } = await signUp(email, password, username);
-    
     if (error) {
       toast({
         title: "Sign up failed",
@@ -54,7 +50,6 @@ const Auth = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     const { error } = await signIn(email, password);
-    
     if (error) {
       toast({
         title: "Sign in failed",
@@ -70,97 +65,77 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 page-turn">
-      <div className="w-full max-w-md">
+    <div className="relative min-h-screen w-screen overflow-hidden flex items-center justify-center">
+
+      {/* 🔥 Spline background */}
+      <Spline
+        scene="https://prod.spline.design/KjQTjXYpbR2Y-1hz/scene.splinecode"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* 🔥 Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+      {/* 🔥 Login Form (same layout as before) */}
+      <div className="relative w-full max-w-md px-4 z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-4xl font-serif font-bold text-foreground mb-2">BookThreads</h1>
-          <p className="text-muted-foreground">Where readers gather to discuss</p>
+          <h1 className="text-4xl font-serif font-bold text-white mb-2">BookThreads</h1>
+          <p className="text-gray-200">Where readers gather to discuss</p>
         </div>
 
-        <Card className="book-page">
+        <Card className="bg-gradient-to-b from-blue-100/80 to-blue-200/70 backdrop-blur-md shadow-xl border border-white/20">
           <CardHeader>
-            <CardTitle className="font-serif">Welcome</CardTitle>
-            <CardDescription>Sign in to your account or create a new one</CardDescription>
-          </CardHeader>
+  
+  <CardDescription className="text-blue-450">
+    Sign in to your account or create a new one
+  </CardDescription>
+</CardHeader>
+
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
-                    <Input
-                      id="signin-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
+                    <Label>Email</Label>
+                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
-                    <Input
-                      id="signin-password"
-                      type="password"
-                      placeholder="••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
+                    <Label>Password</Label>
+                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Sign In
-                  </Button>
+                  <Button type="submit" className="w-full">Sign In</Button>
                 </form>
               </TabsContent>
-              
+
               <TabsContent value="signup">
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signup-username">Username</Label>
-                    <Input
-                      id="signup-username"
-                      type="text"
-                      placeholder="bookworm"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                    />
+                    <Label>Username</Label>
+                    <Input value={username} onChange={(e) => setUsername(e.target.value)} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
+                    <Label>Email</Label>
+                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label>Password</Label>
                     <Input
-                      id="signup-password"
                       type="password"
-                      placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       minLength={6}
                     />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Create Account
-                  </Button>
+                  <Button type="submit" className="w-full">Create Account</Button>
                 </form>
               </TabsContent>
             </Tabs>

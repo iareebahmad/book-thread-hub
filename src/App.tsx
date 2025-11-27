@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+
 import Library from "./pages/Library";
 import Auth from "./pages/Auth";
 import BookDetail from "./pages/BookDetail";
@@ -20,11 +21,17 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
+            {/* Landing page */}
             <Route path="/" element={<Library />} />
+
+            {/* Auth page with Spline background */}
             <Route path="/auth" element={<Auth />} />
+
+            {/* Book + Thread pages */}
             <Route path="/book/:bookId" element={<BookDetail />} />
             <Route path="/thread/:threadId" element={<ThreadDetail />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+            {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
