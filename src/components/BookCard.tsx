@@ -23,7 +23,7 @@ export const BookCard = ({ book }: BookCardProps) => {
       onClick={() => navigate(`/book/${book.id}`)}
     >
       <CardHeader className="p-0">
-        <div className="aspect-[3/4] bg-muted flex items-center justify-center overflow-hidden">
+        <div className="aspect-[2/3] bg-muted flex items-center justify-center overflow-hidden">
           {book.cover_url ? (
             <img 
               src={book.cover_url} 
@@ -31,20 +31,17 @@ export const BookCard = ({ book }: BookCardProps) => {
               className="w-full h-full object-cover"
             />
           ) : (
-            <BookOpen className="w-16 h-16 text-muted-foreground/50" />
+            <BookOpen className="w-8 h-8 text-muted-foreground/50" />
           )}
         </div>
       </CardHeader>
-      <CardContent className="p-4">
-        <h3 className="font-bold text-lg mb-1 line-clamp-2">{book.title}</h3>
-        <p className="text-sm text-muted-foreground mb-3">{book.author}</p>
-        {book.description && (
-          <p className="text-sm text-foreground/80 line-clamp-2">{book.description}</p>
-        )}
+      <CardContent className="p-3">
+        <h3 className="font-bold text-sm mb-1 line-clamp-2">{book.title}</h3>
+        <p className="text-xs text-muted-foreground line-clamp-1">{book.author}</p>
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex flex-wrap gap-2">
-        {book.genres?.slice(0, 3).map((genre, idx) => (
-          <Badge key={idx} variant="secondary" className="text-xs">
+      <CardFooter className="p-3 pt-0 flex flex-wrap gap-1">
+        {book.genres?.slice(0, 2).map((genre, idx) => (
+          <Badge key={idx} variant="secondary" className="text-xs px-1.5 py-0">
             {genre.name}
           </Badge>
         ))}
