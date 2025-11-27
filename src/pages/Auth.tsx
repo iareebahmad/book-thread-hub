@@ -77,19 +77,18 @@ const Auth = () => {
         <div className="floating-book"></div>
         <div className="floating-book"></div>
       </div>
-
       <div className="w-full max-w-md slide-up relative z-10">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 glow">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-4xl font-bold gradient-text mb-2">BookThreads</h1>
+          <h1 className="text-4xl font-serif font-bold text-foreground mb-2">BookThreads</h1>
           <p className="text-muted-foreground">Where readers gather to discuss</p>
         </div>
 
-        <Card className="glass-card">
+        <Card className="book-page">
           <CardHeader>
-            <CardTitle>Welcome</CardTitle>
+            <CardTitle className="font-serif">Welcome</CardTitle>
             <CardDescription>Sign in to your account or create a new one</CardDescription>
           </CardHeader>
           <CardContent>

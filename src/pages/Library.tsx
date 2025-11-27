@@ -133,13 +133,26 @@ const Library = () => {
       
       <main className="container mx-auto px-4 py-8 slide-up">
         {/* Hero Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
           <div>
             <h1 className="text-5xl font-bold text-foreground mb-3 gradient-text">The Library</h1>
             <p className="text-muted-foreground text-lg">Discover and discuss your favorite books</p>
           </div>
           <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
         </div>
+
+        {/* About Section */}
+        <section className="glass-card p-8 mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">About BookThreads</h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+            Welcome to BookThreads, where every book sparks a conversation. We're building a community 
+            of passionate readers who believe that the best part of reading is sharing the experience.
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Dive into discussions, share your thoughts, and connect with fellow book lovers. Whether 
+            you're into fantasy, non-fiction, or anything in between, there's a thread waiting for you.
+          </p>
+        </section>
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -186,7 +199,7 @@ const Library = () => {
         {filteredBooks.length === 0 ? (
           <div className="text-center py-16">
             <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2">No books found</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">No books found</h3>
             <p className="text-muted-foreground mb-6">
               {searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all'
                 ? 'Try adjusting your filters'
@@ -194,7 +207,7 @@ const Library = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredBooks.map(book => (
               <BookCard key={book.id} book={book} />
             ))}
