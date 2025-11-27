@@ -69,7 +69,7 @@ const Auth = () => {
 
       {/* 🔥 Spline background */}
       <Spline
-        scene="https://prod.spline.design/KjQTjXYpbR2Y-1hz/scene.splinecode"
+        scene="https://prod.spline.design/1rdYM-KZeUYfW8LV/scene.splinecode"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
