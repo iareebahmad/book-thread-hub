@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Share2, Library } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { NotificationBell } from './NotificationBell';
+import { ReferralDialog } from './ReferralDialog';
 
 export const Navbar = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [referralOpen, setReferralOpen] = useState(false);
 
   return (
     <nav className="border-b border-border/50 bg-card/60 backdrop-blur-xl sticky top-0 z-50 glow">
@@ -19,10 +23,45 @@ export const Navbar = () => {
         </button>
         
         {user && (
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground hidden sm:inline">
-              Welcome back!
-            </span>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/')}
+              className="gap-2 hidden sm:flex"
+            >
+              <Library className="w-4 h-4" />
+              Library
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/favorites')}
+              className="gap-2 hidden sm:flex"
+            >
+              <Heart className="w-4 h-4" />
+              Favourites
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setReferralOpen(true)}
+              className="gap-2 hidden sm:flex"
+            >
+              <Share2 className="w-4 h-4" />
+              Invite
+            </Button>
+            
+            <NotificationBell />
+            
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate('/settings')}
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+            
             <Button
               variant="outline"
               size="sm"
@@ -30,10 +69,12 @@ export const Navbar = () => {
               className="gap-2"
             >
               <LogOut className="w-4 h-4" />
-              Sign Out
+              <span className="hidden sm:inline">Sign Out</span>
             </Button>
           </div>
         )}
+        
+        <ReferralDialog open={referralOpen} onOpenChange={setReferralOpen} />
       </div>
     </nav>
   );

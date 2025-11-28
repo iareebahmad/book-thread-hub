@@ -9,6 +9,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, username: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
   loading: boolean;
 }
 
@@ -79,8 +80,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     navigate('/auth');
   };
 
+  const deleteAccount = async () => {
+    if (!user) return;
+    
+    // Delete user account (cascade deletes will handle related data)
+    const { error } = await supabase.auth.admin.deleteUser(user.id);
+    
+    if (!error) {
+      await supabase.auth.signOut();
+      navigate('/auth');
+    } else {
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, session, signUp, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ user, session, signUp, signIn, signOut, deleteAccount, loading }}>
       {children}
     </AuthContext.Provider>
   );

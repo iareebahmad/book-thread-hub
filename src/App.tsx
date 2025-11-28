@@ -9,6 +9,8 @@ import Library from "./pages/Library";
 import Auth from "./pages/Auth";
 import BookDetail from "./pages/BookDetail";
 import ThreadDetail from "./pages/ThreadDetail";
+import Favorites from "./pages/Favorites";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,10 @@ const App = () => (
             {/* Book + Thread pages */}
             <Route path="/book/:bookId" element={<BookDetail />} />
             <Route path="/thread/:threadId" element={<ThreadDetail />} />
+            
+            {/* User pages */}
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/settings" element={<Settings />} />
 
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
