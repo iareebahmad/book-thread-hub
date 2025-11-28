@@ -90,12 +90,8 @@ const Auth = () => {
           <p className="text-gray-200">Where readers gather to discuss</p>
         </div>
 
-<<<<<<< HEAD
         <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-white/10">
 
-=======
-        <Card className="bg-gradient-to-b from-blue-100/80 to-blue-200/70 backdrop-blur-md shadow-xl border border-white/20">
->>>>>>> ff6f5d3ecc94ce2ecf604a305b49e5483b0384e6
               <CardHeader>
       <CardTitle className="font-serif text-white text-center">Welcome</CardTitle>
       <CardDescription className="text-gray-200 text-center">
