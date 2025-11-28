@@ -134,6 +134,35 @@ export type Database = {
           },
         ]
       }
+      favorites: {
+        Row: {
+          book_id: string
+          created_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          book_id: string
+          created_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          book_id?: string
+          created_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       genres: {
         Row: {
           created_at: string | null
@@ -149,6 +178,39 @@ export type Database = {
           created_at?: string | null
           id?: string
           name?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          link: string | null
+          message: string
+          read: boolean | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          link?: string | null
+          message: string
+          read?: boolean | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          link?: string | null
+          message?: string
+          read?: boolean | null
+          title?: string
+          type?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -170,6 +232,30 @@ export type Database = {
           created_at?: string | null
           id?: string
           username?: string
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          accepted: boolean | null
+          friend_email: string
+          id: string
+          invited_at: string | null
+          referrer_id: string
+        }
+        Insert: {
+          accepted?: boolean | null
+          friend_email: string
+          id?: string
+          invited_at?: string | null
+          referrer_id: string
+        }
+        Update: {
+          accepted?: boolean | null
+          friend_email?: string
+          id?: string
+          invited_at?: string | null
+          referrer_id?: string
         }
         Relationships: []
       }
