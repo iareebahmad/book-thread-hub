@@ -38,75 +38,101 @@ export const BookCard = ({ book }: BookCardProps) => {
 
   return (
     <Card 
-      className="glass-card hover-lift cursor-pointer overflow-hidden transition-all relative group border-0"
+      className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/95 to-card/50 backdrop-blur-xl hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer rounded-3xl"
       onClick={handleCardClick}
     >
-      <CardHeader className="p-0 relative">
-        <div className="aspect-[2/3] bg-gradient-to-br from-muted/50 to-muted flex items-center justify-center overflow-hidden relative">
-          {book.cover_url ? (
-            <>
-              <img 
-                src={book.cover_url} 
-                alt={book.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </>
-          ) : (
-            <BookOpen className="w-16 h-16 text-muted-foreground/30" />
-          )}
-        </div>
+      {/* Cover Image with Overlay */}
+      <div className="relative aspect-[2/3] overflow-hidden">
+        {book.cover_url ? (
+          <>
+            <img 
+              src={book.cover_url} 
+              alt={book.title}
+              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+            />
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </>
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-muted/30 to-muted/10 flex items-center justify-center">
+            <BookOpen className="w-20 h-20 text-muted-foreground/20" />
+          </div>
+        )}
         
-        {/* Favorite button */}
+        {/* Floating Favorite Button */}
         <Button
           size="icon"
-          variant="secondary"
-          className="absolute top-3 right-3 h-10 w-10 opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm bg-background/80 hover:bg-background border-0 shadow-lg"
+          className="absolute top-3 right-3 h-11 w-11 rounded-full backdrop-blur-md bg-background/70 hover:bg-background/90 border border-border/50 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl hover:scale-110"
           onClick={handleFavorite}
         >
-          <Heart className={`w-5 h-5 transition-colors ${isFavorite ? 'fill-primary text-primary' : 'text-foreground'}`} />
+          <Heart className={`w-5 h-5 transition-all ${isFavorite ? 'fill-primary text-primary scale-110' : 'text-foreground'}`} />
         </Button>
-      </CardHeader>
-      <CardContent className="p-4 pb-3">
-        <h3 className="font-bold text-base mb-1 line-clamp-2 group-hover:text-primary transition-colors">{book.title}</h3>
-        <p className="text-xs text-muted-foreground mb-2">{book.author}</p>
-        
-        {/* Genres */}
+
+        {/* Genre Tags - Floating on Image */}
         {book.genres && book.genres.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-3">
+          <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             {book.genres.slice(0, 2).map((genre, idx) => (
-              <Badge key={idx} variant="secondary" className="text-[10px] px-2 py-0.5 bg-muted/50 border-0">
+              <Badge 
+                key={idx} 
+                className="backdrop-blur-md bg-background/80 text-foreground border-0 text-[10px] px-2.5 py-1 shadow-lg font-medium"
+              >
                 {genre.name}
               </Badge>
             ))}
           </div>
         )}
-      </CardContent>
-      
-      <CardFooter className="p-4 pt-0 flex items-center justify-between border-t border-border/30">
-        {/* Vote buttons */}
-        <div className="flex items-center gap-1.5">
+
+        {/* Vote Display Badge */}
+        <div className="absolute top-3 left-3 backdrop-blur-md bg-background/80 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-xl border border-border/50">
+          <ThumbsUp className="w-3 h-3 text-primary" />
+          <span className="text-xs font-bold tabular-nums">{voteCount}</span>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-4 space-y-3">
+        {/* Title & Author */}
+        <div>
+          <h3 className="font-bold text-base leading-tight line-clamp-2 mb-1.5 group-hover:text-primary transition-colors duration-300">
+            {book.title}
+          </h3>
+          <p className="text-xs text-muted-foreground font-medium">{book.author}</p>
+        </div>
+
+        {/* Interactive Vote Bar */}
+        <div className="flex items-center gap-2 p-2 rounded-full bg-muted/30 border border-border/30">
           <Button
             size="sm"
             variant={userVote === 1 ? "default" : "ghost"}
-            className="h-8 w-8 p-0 hover:scale-110 transition-transform"
+            className="h-8 w-8 rounded-full p-0 hover:scale-110 transition-all"
             onClick={(e) => handleVote(e, 1)}
           >
             <ThumbsUp className="w-3.5 h-3.5" />
           </Button>
-          <span className="text-sm font-semibold min-w-[2rem] text-center tabular-nums">
-            {voteCount}
-          </span>
+          
+          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-300"
+              style={{ width: `${Math.max(0, Math.min(100, ((voteCount + 10) / 20) * 100))}%` }}
+            />
+          </div>
+          
           <Button
             size="sm"
             variant={userVote === -1 ? "default" : "ghost"}
-            className="h-8 w-8 p-0 hover:scale-110 transition-transform"
+            className="h-8 w-8 rounded-full p-0 hover:scale-110 transition-all"
             onClick={(e) => handleVote(e, -1)}
           >
             <ThumbsDown className="w-3.5 h-3.5" />
           </Button>
         </div>
-      </CardFooter>
+      </div>
+
+      {/* Hover Glow Effect */}
+      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+        <div className="absolute inset-0 rounded-3xl ring-2 ring-primary/50" />
+      </div>
     </Card>
   );
 };
