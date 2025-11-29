@@ -2,7 +2,7 @@
   "name": "BookThreads",
   "short_name": "BookThreads",
   "description": "Where readers gather to discuss",
-  "start_url": "/",
+  "start_url": "https://bookthreads.netlify.app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
