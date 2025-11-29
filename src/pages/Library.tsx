@@ -125,69 +125,120 @@ const Library = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8 page-turn">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-          <div>
-            <h1 className="text-4xl font-serif font-bold text-foreground mb-2">The Library</h1>
-            <p className="text-muted-foreground">Discover and discuss your favorite books</p>
+      <main className="container mx-auto px-4 py-12 slide-up">
+        {/* Hero Section */}
+        <div className="mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-6">
+            <div className="space-y-3">
+              <h1 className="text-5xl md:text-6xl font-bold gradient-text">
+                The Library
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                Discover and discuss your favorite books
+              </p>
+            </div>
+            <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
           </div>
-          <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
+
+          {/* Stats Bar */}
+          <div className="glass-card p-6 flex flex-wrap gap-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{books.length}</p>
+                <p className="text-sm text-muted-foreground">Books</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                <Filter className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{genres.length}</p>
+                <p className="text-sm text-muted-foreground">Genres</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Search className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{authors.length}</p>
+                <p className="text-sm text-muted-foreground">Authors</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search by title or author..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+        {/* Filters Section */}
+        <div className="glass-card p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Input
+                placeholder="Search by title or author..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-12 h-12 bg-background/50 border-border/50 focus:border-primary transition-all"
+              />
+            </div>
+            
+            <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+              <SelectTrigger className="h-12 bg-background/50 border-border/50">
+                <SelectValue placeholder="Filter by genre" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Genres</SelectItem>
+                {genres.map(genre => (
+                  <SelectItem key={genre.id} value={genre.name}>
+                    {genre.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
+              <SelectTrigger className="h-12 bg-background/50 border-border/50">
+                <SelectValue placeholder="Filter by author" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Authors</SelectItem>
+                {authors.map(author => (
+                  <SelectItem key={author} value={author}>
+                    {author}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           
-          <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filter by genre" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Genres</SelectItem>
-              {genres.map(genre => (
-                <SelectItem key={genre.id} value={genre.name}>
-                  {genre.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filter by author" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Authors</SelectItem>
-              {authors.map(author => (
-                <SelectItem key={author} value={author}>
-                  {author}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {/* Active Filters Display */}
+          {(searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all') && (
+            <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Showing {filteredBooks.length} of {books.length} books</span>
+            </div>
+          )}
         </div>
 
         {/* Books Grid */}
         {filteredBooks.length === 0 ? (
-          <div className="text-center py-16">
-            <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-serif font-bold mb-2">No books found</h3>
-            <p className="text-muted-foreground mb-6">
-              {searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all'
-                ? 'Try adjusting your filters'
-                : 'Be the first to add a book to the library'}
-            </p>
+          <div className="glass-card p-16 text-center">
+            <div className="max-w-md mx-auto space-y-4">
+              <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mx-auto">
+                <BookOpen className="w-10 h-10 text-muted-foreground" />
+              </div>
+              <h3 className="text-2xl font-bold">No books found</h3>
+              <p className="text-muted-foreground">
+                {searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all'
+                  ? 'Try adjusting your filters to discover more books'
+                  : 'Be the first to add a book to the library'}
+              </p>
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             {filteredBooks.map(book => (
               <BookCard key={book.id} book={book} />
             ))}

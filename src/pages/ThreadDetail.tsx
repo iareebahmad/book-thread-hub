@@ -47,14 +47,23 @@ const ThreadDetail = () => {
       .from('threads')
       .select(`
         *,
-        profiles:created_by (username),
         books (title)
       `)
       .eq('id', threadId)
       .single();
 
     if (!error && data) {
-      setThread(data);
+      // Fetch profile separately
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('id', data.created_by)
+        .single();
+
+      setThread({
+        ...data,
+        profiles: profileData || null
+      });
     }
     setLoading(false);
   };
