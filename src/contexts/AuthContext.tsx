@@ -83,8 +83,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const deleteAccount = async () => {
     if (!user) return;
     
-    // Delete user account (cascade deletes will handle related data)
-    const { error } = await supabase.auth.admin.deleteUser(user.id);
+    // Call edge function to delete account
+    const { error } = await supabase.functions.invoke('delete-account');
     
     if (!error) {
       await supabase.auth.signOut();

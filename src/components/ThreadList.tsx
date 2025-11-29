@@ -35,13 +35,21 @@ export const ThreadList = ({ bookId }: ThreadListProps) => {
     const { data: threadsData } = await supabase
       .from('threads')
       .select(`
-        *,
-        profiles:created_by (username)
+        *
       `)
       .eq('book_id', bookId)
       .order('created_at', { ascending: false });
 
     if (threadsData) {
+      // Fetch profiles for all threads
+      const userIds = [...new Set(threadsData.map(t => t.created_by))];
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('id, username')
+        .in('id', userIds);
+
+      const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+
       // Fetch comment counts and vote scores for each thread
       const threadsWithStats = await Promise.all(
         threadsData.map(async (thread) => {
@@ -60,6 +68,7 @@ export const ThreadList = ({ bookId }: ThreadListProps) => {
 
           return {
             ...thread,
+            profiles: profilesMap.get(thread.created_by) || null,
             comment_count: count || 0,
             vote_score: voteScore,
           };

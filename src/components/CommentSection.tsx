@@ -39,20 +39,30 @@ export const CommentSection = ({ threadId }: CommentSectionProps) => {
   const fetchComments = async () => {
     const { data } = await supabase
       .from('comments')
-      .select(`
-        *,
-        profiles:created_by (username)
-      `)
+      .select('*')
       .eq('thread_id', threadId)
       .order('created_at', { ascending: true });
 
     if (data) {
+      // Fetch profiles for all comments
+      const userIds = [...new Set(data.map(c => c.created_by))];
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('id, username')
+        .in('id', userIds);
+
+      const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+
       // Organize comments into tree structure
       const commentMap = new Map<string, Comment>();
       const rootComments: Comment[] = [];
 
       data.forEach(comment => {
-        commentMap.set(comment.id, { ...comment, replies: [] });
+        commentMap.set(comment.id, { 
+          ...comment, 
+          profiles: profilesMap.get(comment.created_by) || null,
+          replies: [] 
+        });
       });
 
       data.forEach(comment => {
