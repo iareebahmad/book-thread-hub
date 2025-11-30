@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "logo.png"],
+      includeAssets: ["favicon.ico", "logo-192.png", "logo-512.png"],
       manifest: {
         name: "BookThreads",
         short_name: "BookThreads",
@@ -28,8 +28,14 @@ export default defineConfig(({ mode }) => ({
         start_url: "/",
         icons: [
           {
-            src: "/logo.png",
+            src: "/logo-512.png",
             sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable"
+          },
+          {
+            src: "/logo-192.png",
+            sizes: "192x192",
             type: "image/png",
             purpose: "any maskable"
           }
