@@ -48,29 +48,41 @@ export const useBookVotes = (bookId: string) => {
     try {
       if (userVote === value) {
         // Remove vote if clicking the same button
-        await supabase
+        const { error } = await supabase
           .from('votes')
           .delete()
           .eq('votable_type', 'book')
           .eq('votable_id', bookId)
           .eq('user_id', user.id);
         
+        if (error) {
+          console.error('Delete vote error:', error);
+          toast.error('Failed to remove vote');
+          return;
+        }
+        
         setUserVote(null);
         setVoteCount(prev => prev - value);
       } else if (userVote) {
         // Update existing vote
-        await supabase
+        const { error } = await supabase
           .from('votes')
           .update({ value })
           .eq('votable_type', 'book')
           .eq('votable_id', bookId)
           .eq('user_id', user.id);
         
+        if (error) {
+          console.error('Update vote error:', error);
+          toast.error('Failed to update vote');
+          return;
+        }
+        
         setVoteCount(prev => prev - userVote + value);
         setUserVote(value);
       } else {
         // Create new vote
-        await supabase
+        const { error } = await supabase
           .from('votes')
           .insert({
             votable_type: 'book',
@@ -79,10 +91,20 @@ export const useBookVotes = (bookId: string) => {
             value,
           });
         
+        if (error) {
+          console.error('Insert vote error:', error);
+          toast.error('Failed to add vote');
+          return;
+        }
+        
         setVoteCount(prev => prev + value);
         setUserVote(value);
       }
+      
+      // Refetch to ensure consistency
+      await fetchVotes();
     } catch (error) {
+      console.error('Vote error:', error);
       toast.error('Failed to vote');
     }
   };
