@@ -2,16 +2,28 @@
   "name": "BookThreads",
   "short_name": "BookThreads",
   "description": "Where readers gather to discuss",
-  "start_url": "https://bookthreads.netlify.app/",
-  "scope": "https://bookthreads.netlify.app/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "categories": ["books", "social", "education"],
   "icons": [
     {
       "src": "/logo.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": [],
+  "shortcuts": [],
+  "prefer_related_applications": false
 }
