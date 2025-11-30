@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { BookCard } from '@/components/BookCard';
 import { AddBookDialog } from '@/components/AddBookDialog';
 import { Navbar } from '@/components/Navbar';
-import { BookOpen, Search, Filter } from 'lucide-react';
+import { LibraryBig, UserRoundPen, Filter } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 
@@ -115,7 +115,7 @@ const Library = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-          <BookOpen className="w-12 h-12 text-primary animate-pulse" />
+          <LibraryBig className="w-12 h-12 text-primary animate-pulse" />
         </div>
       </div>
     );
@@ -144,7 +144,7 @@ const Library = () => {
           <div className="glass-card p-6 flex flex-wrap gap-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-primary" />
+                <LibraryBig className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{books.length}</p>
@@ -162,7 +162,7 @@ const Library = () => {
             </div>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Search className="w-6 h-6 text-primary" />
+                <UserRoundPen className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{authors.length}</p>
@@ -176,7 +176,7 @@ const Library = () => {
         <div className="glass-card p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <UserRoundPen  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <Input
                 placeholder="Search by title or author..."
                 value={searchQuery}
@@ -227,7 +227,7 @@ const Library = () => {
           <div className="glass-card p-16 text-center">
             <div className="max-w-md mx-auto space-y-4">
               <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mx-auto">
-                <BookOpen className="w-10 h-10 text-muted-foreground" />
+                <LibraryBig className="w-10 h-10 text-muted-foreground" />
               </div>
               <h3 className="text-2xl font-bold">No books found</h3>
               <p className="text-muted-foreground">
