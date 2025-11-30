@@ -128,15 +128,10 @@ const Library = () => {
       <main className="container mx-auto px-4 py-12 slide-up">
         {/* Hero Section */}
         <div className="mb-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-6">
-            <div className="space-y-3">
-              <h1 className="text-5xl md:text-6xl font-bold gradient-text">
-                The Library
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Discover and discuss your favorite books
-              </p>
-            </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+            <p className="text-lg text-muted-foreground">
+              Discover and discuss your favorite books
+            </p>
             <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
           </div>
 
