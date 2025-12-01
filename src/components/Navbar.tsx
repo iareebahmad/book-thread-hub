@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut, Heart, Settings, Share2, Library } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Share2, Library, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from './NotificationBell';
 import { ReferralDialog } from './ReferralDialog';
@@ -41,6 +41,15 @@ export const Navbar = () => {
             >
               <Heart className="w-4 h-4" />
               Favourites
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/search-users')}
+              className="gap-2 hidden sm:flex"
+            >
+              <Users className="w-4 h-4" />
+              Users
             </Button>
             <Button
               variant="ghost"

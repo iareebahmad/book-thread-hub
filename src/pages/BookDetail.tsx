@@ -16,6 +16,11 @@ interface Book {
   description: string | null;
   cover_url: string | null;
   genres?: { name: string }[];
+  created_by?: string;
+  profiles?: {
+    username: string;
+    avatar_url: string | null;
+  };
 }
 
 const BookDetail = () => {
@@ -50,9 +55,17 @@ const BookDetail = () => {
       .single();
 
     if (!error && data) {
+      // Fetch creator profile separately
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('username, avatar_url')
+        .eq('id', data.created_by)
+        .single();
+
       setBook({
         ...data,
-        genres: data.book_genres?.map((bg: any) => bg.genres).filter(Boolean) || []
+        genres: data.book_genres?.map((bg: any) => bg.genres).filter(Boolean) || [],
+        profiles: profileData || undefined
       });
     }
     setLoading(false);
@@ -115,6 +128,11 @@ const BookDetail = () => {
           <div>
             <h1 className="text-4xl font-serif font-bold mb-2">{book.title}</h1>
             <p className="text-xl text-muted-foreground mb-4">by {book.author}</p>
+            {book.profiles?.username && (
+              <p className="text-sm text-muted-foreground mb-4">
+                Added by <span className="font-medium text-foreground">@{book.profiles.username}</span>
+              </p>
+            )}
             
             <div className="flex flex-wrap gap-2 mb-6">
               {book.genres?.map((genre, idx) => (
