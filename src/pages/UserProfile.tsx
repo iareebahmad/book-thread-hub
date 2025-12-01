@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/Navbar';
 import { BookCard } from '@/components/BookCard';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BookOpen, User } from 'lucide-react';
+import { ArrowLeft, BookOpen, User, UserPlus, UserMinus } from 'lucide-react';
+import { useFollow } from '@/hooks/useFollow';
 
 interface UserProfile {
   id: string;
   username: string;
   avatar_url: string | null;
+  follower_count: number;
+  following_count: number;
 }
 
 interface Book {
@@ -26,9 +30,11 @@ interface Book {
 const UserProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const { isFollowing, loading: followLoading, toggleFollow } = useFollow(userId || '');
 
   useEffect(() => {
     if (userId) {
@@ -41,7 +47,7 @@ const UserProfile = () => {
       // Fetch user profile
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('id, username, avatar_url')
+        .select('id, username, avatar_url, follower_count, following_count')
         .eq('id', userId)
         .single();
 
@@ -113,20 +119,50 @@ const UserProfile = () => {
         </Button>
 
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-6 mb-8 pb-8 border-b">
-            <Avatar className="w-24 h-24">
+          <div className="flex items-start gap-6 mb-8 pb-8 border-b">
+            <Avatar className="w-24 h-24 border-2 border-border">
               <AvatarImage src={profile.avatar_url || undefined} />
               <AvatarFallback className="text-2xl">
                 {profile.username.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             
-            <div>
-              <h1 className="text-3xl font-serif font-bold mb-1">@{profile.username}</h1>
-              <p className="text-muted-foreground flex items-center gap-2">
-                <BookOpen className="w-4 h-4" />
-                {books.length} {books.length === 1 ? 'book' : 'books'} added
-              </p>
+            <div className="flex-1">
+              <h1 className="text-3xl font-serif font-bold mb-2">@{profile.username}</h1>
+              
+              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                <span className="flex items-center gap-1">
+                  <strong className="text-foreground">{profile.follower_count || 0}</strong> followers
+                </span>
+                <span className="flex items-center gap-1">
+                  <strong className="text-foreground">{profile.following_count || 0}</strong> following
+                </span>
+                <span className="flex items-center gap-1">
+                  <BookOpen className="w-4 h-4" />
+                  <strong className="text-foreground">{books.length}</strong> {books.length === 1 ? 'book' : 'books'}
+                </span>
+              </div>
+
+              {user && user.id !== profile.id && (
+                <Button
+                  onClick={toggleFollow}
+                  disabled={followLoading}
+                  variant={isFollowing ? "outline" : "default"}
+                  className="gap-2"
+                >
+                  {isFollowing ? (
+                    <>
+                      <UserMinus className="w-4 h-4" />
+                      Unfollow
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus className="w-4 h-4" />
+                      Follow
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </div>
 
@@ -139,9 +175,11 @@ const UserProfile = () => {
                 <p className="text-muted-foreground">This user hasn't added any books yet</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {books.map((book) => (
-                  <BookCard key={book.id} book={book} />
+                  <div key={book.id} className="scale-90 origin-top">
+                    <BookCard book={book} />
+                  </div>
                 ))}
               </div>
             )}
