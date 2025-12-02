@@ -1,6 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from './NotificationBell';
 
@@ -72,6 +72,14 @@ export const Navbar = () => {
                 >
                   <Users className="w-4 h-4 mr-2" />
                   Search People
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => navigate('/pricing')}
+                  className="rounded-md cursor-pointer py-2 px-2"
+                >
+                  <CreditCard className="w-4 h-4 mr-2" />
+                  Pricing
                 </DropdownMenuItem>
 
                 {/* Section: Preferences */}

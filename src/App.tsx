@@ -13,6 +13,7 @@ import Favorites from "./pages/Favorites";
 import Settings from "./pages/Settings";
 import UserSearch from "./pages/UserSearch";
 import UserProfile from "./pages/UserProfile";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/search-users" element={<UserSearch />} />
             <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/pricing" element={<Pricing />} />
 
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
