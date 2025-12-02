@@ -122,7 +122,15 @@ const Library = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen bg-background"
+      style={{
+        backgroundImage: "url('/bookbg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Navbar />
       
       <main className="container mx-auto px-4 py-12 slide-up">
