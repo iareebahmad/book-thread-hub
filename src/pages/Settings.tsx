@@ -3,6 +3,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { AccountSettings } from '@/components/AccountSettings';
+import { ProfileEditor } from '@/components/ProfileEditor';
+import { MyBooksManager } from '@/components/MyBooksManager';
 import { Settings as SettingsIcon } from 'lucide-react';
 
 const Settings = () => {
@@ -28,7 +30,11 @@ const Settings = () => {
           <p className="text-muted-foreground">Manage your account preferences</p>
         </div>
 
-        <AccountSettings />
+        <div className="space-y-6">
+          <ProfileEditor />
+          <MyBooksManager />
+          <AccountSettings />
+        </div>
       </main>
     </div>
   );
