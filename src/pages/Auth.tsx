@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Check } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -158,6 +158,52 @@ const Auth = () => {
             </Tabs>
           </CardContent>
         </Card>
+
+        {/* Pricing Plans */}
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold text-center text-white mb-8">Our Plans</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Essential Plan */}
+            <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-2xl">Essential</CardTitle>
+                <CardDescription className="text-gray-200">
+                  <span className="text-3xl font-bold text-white">Free</span>
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-start gap-2 text-white">
+                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span>1 book upload/month</span>
+                </div>
+                <div className="flex items-start gap-2 text-white">
+                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span>Coming Soon</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Elite Plan */}
+            <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-primary/40 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
+                Popular
+              </div>
+              <CardHeader>
+                <CardTitle className="text-white text-2xl">Elite</CardTitle>
+                <CardDescription className="text-gray-200">
+                  <span className="text-3xl font-bold text-white">₹59</span>
+                  <span className="text-gray-300">/month</span>
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-start gap-2 text-white">
+                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span>Add unlimited books</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

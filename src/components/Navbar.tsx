@@ -31,6 +31,14 @@ export const Navbar = () => {
         {/* Right side */}
         {user && (
           <div className="flex items-center gap-1.5">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate('/')}
+            >
+              <Library className="w-6 h-6" />
+            </Button>
+
             <NotificationBell />
 
             <DropdownMenu>
@@ -49,14 +57,6 @@ export const Navbar = () => {
                 <div className="px-2 py-1.5 text-[11px] font-medium text-muted-foreground uppercase">
                   Navigation
                 </div>
-
-                <DropdownMenuItem
-                  onClick={() => navigate('/')}
-                  className="rounded-md cursor-pointer py-2 px-2"
-                >
-                  <Library className="w-4 h-4 mr-2" />
-                  Library
-                </DropdownMenuItem>
 
                 <DropdownMenuItem
                   onClick={() => navigate('/favorites')}
