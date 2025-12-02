@@ -5,8 +5,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/Navbar';
 import { BookCard } from '@/components/BookCard';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BookOpen, User, UserPlus, UserMinus } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowLeft, BookOpen, User, UserPlus, UserMinus, TrendingUp, Heart } from 'lucide-react';
 import { useFollow } from '@/hooks/useFollow';
+import { FollowersList } from '@/components/FollowersList';
 
 interface UserProfile {
   id: string;
@@ -14,6 +17,14 @@ interface UserProfile {
   avatar_url: string | null;
   follower_count: number;
   following_count: number;
+  bio: string | null;
+  favorite_genre: string | null;
+}
+
+interface UserStats {
+  totalBooks: number;
+  totalUpvotes: number;
+  totalThreads: number;
 }
 
 interface Book {
@@ -32,7 +43,9 @@ const UserProfile = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [books, setBooks] = useState<Book[]>([]);
+  const [stats, setStats] = useState<UserStats>({ totalBooks: 0, totalUpvotes: 0, totalThreads: 0 });
   const [loading, setLoading] = useState(true);
+  const [showFollowersList, setShowFollowersList] = useState(false);
   const { isFollowing, loading: followLoading, toggleFollow } = useFollow(userId || '');
 
   useEffect(() => {
@@ -43,7 +56,7 @@ const UserProfile = () => {
     try {
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('id, username, avatar_url, follower_count, following_count')
+        .select('id, username, avatar_url, follower_count, following_count, bio, favorite_genre')
         .eq('id', userId)
         .single();
 
@@ -69,6 +82,27 @@ const UserProfile = () => {
       }));
 
       setBooks(formattedBooks);
+
+      // Fetch user statistics
+      const [votesResult, threadsResult] = await Promise.all([
+        supabase
+          .from('votes')
+          .select('value', { count: 'exact' })
+          .eq('votable_type', 'book')
+          .in('votable_id', booksData.map(b => b.id)),
+        supabase
+          .from('threads')
+          .select('id', { count: 'exact' })
+          .eq('created_by', userId),
+      ]);
+
+      const totalUpvotes = votesResult.data?.reduce((sum, vote) => sum + vote.value, 0) || 0;
+
+      setStats({
+        totalBooks: booksData.length,
+        totalUpvotes,
+        totalThreads: threadsResult.count || 0,
+      });
     } catch (error) {
       console.error('Error fetching user data:', error);
     } finally {
@@ -120,22 +154,36 @@ const UserProfile = () => {
               <User className="w-7 h-7 text-muted-foreground" />
             </div>
 
-
             <div className="flex-1">
               <h1 className="text-3xl font-serif font-bold mb-2">@{profile.username}</h1>
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                <span className="flex items-center gap-1">
+                <button
+                  onClick={() => setShowFollowersList(true)}
+                  className="flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer"
+                >
                   <strong className="text-foreground">{profile.follower_count || 0}</strong> followers
-                </span>
-                <span className="flex items-center gap-1">
+                </button>
+                <button
+                  onClick={() => setShowFollowersList(true)}
+                  className="flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer"
+                >
                   <strong className="text-foreground">{profile.following_count || 0}</strong> following
-                </span>
-                <span className="flex items-center gap-1">
-                  <BookOpen className="w-4 h-4" />
-                  <strong className="text-foreground">{books.length}</strong> {books.length === 1 ? 'book' : 'books'}
-                </span>
+                </button>
               </div>
+
+              {profile.bio && (
+                <p className="text-sm text-muted-foreground mb-3">{profile.bio}</p>
+              )}
+
+              {profile.favorite_genre && (
+                <div className="mb-3">
+                  <Badge variant="secondary" className="gap-1">
+                    <Heart className="w-3 h-3" />
+                    Favorite: {profile.favorite_genre}
+                  </Badge>
+                </div>
+              )}
 
               {user && user.id !== profile.id && (
                 <Button
@@ -160,6 +208,31 @@ const UserProfile = () => {
             </div>
           </div>
 
+          {/* User Statistics */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <BookOpen className="w-8 h-8 mx-auto mb-2 text-primary" />
+                <div className="text-2xl font-bold">{stats.totalBooks}</div>
+                <div className="text-sm text-muted-foreground">Books Added</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <TrendingUp className="w-8 h-8 mx-auto mb-2 text-primary" />
+                <div className="text-2xl font-bold">{stats.totalUpvotes}</div>
+                <div className="text-sm text-muted-foreground">Total Upvotes</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <User className="w-8 h-8 mx-auto mb-2 text-primary" />
+                <div className="text-2xl font-bold">{stats.totalThreads}</div>
+                <div className="text-sm text-muted-foreground">Threads Created</div>
+              </CardContent>
+            </Card>
+          </div>
+
           <div>
             <h2 className="text-2xl font-serif font-bold mb-6">Books Added</h2>
 
@@ -180,6 +253,12 @@ const UserProfile = () => {
           </div>
         </div>
       </main>
+
+      <FollowersList
+        userId={userId || ''}
+        isOpen={showFollowersList}
+        onClose={() => setShowFollowersList(false)}
+      />
     </div>
   );
 };
