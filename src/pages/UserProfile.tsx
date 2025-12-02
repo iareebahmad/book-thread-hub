@@ -4,7 +4,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/Navbar';
 import { BookCard } from '@/components/BookCard';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, BookOpen, User, UserPlus, UserMinus } from 'lucide-react';
 import { useFollow } from '@/hooks/useFollow';
@@ -37,14 +36,11 @@ const UserProfile = () => {
   const { isFollowing, loading: followLoading, toggleFollow } = useFollow(userId || '');
 
   useEffect(() => {
-    if (userId) {
-      fetchUserData();
-    }
+    if (userId) fetchUserData();
   }, [userId]);
 
   const fetchUserData = async () => {
     try {
-      // Fetch user profile
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('id, username, avatar_url, follower_count, following_count')
@@ -54,7 +50,6 @@ const UserProfile = () => {
       if (profileError) throw profileError;
       setProfile(profileData);
 
-      // Fetch user's books
       const { data: booksData, error: booksError } = await supabase
         .from('books')
         .select(`
@@ -107,10 +102,10 @@ const UserProfile = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       <main className="container mx-auto px-4 py-8">
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           onClick={() => navigate('/search-users')}
           className="mb-6 gap-2"
         >
@@ -120,16 +115,15 @@ const UserProfile = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="flex items-start gap-6 mb-8 pb-8 border-b">
-            <Avatar className="w-24 h-24 border-2 border-border">
-              <AvatarImage src={profile.avatar_url || undefined} />
-              <AvatarFallback className="text-2xl">
-                {profile.username.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
             
+            <div className="flex items-center justify-center w-20 h-20 rounded-full bg-muted border border-border">
+              <User className="w-7 h-7 text-muted-foreground" />
+            </div>
+
+
             <div className="flex-1">
               <h1 className="text-3xl font-serif font-bold mb-2">@{profile.username}</h1>
-              
+
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                 <span className="flex items-center gap-1">
                   <strong className="text-foreground">{profile.follower_count || 0}</strong> followers
@@ -168,7 +162,7 @@ const UserProfile = () => {
 
           <div>
             <h2 className="text-2xl font-serif font-bold mb-6">Books Added</h2>
-            
+
             {books.length === 0 ? (
               <div className="text-center py-12">
                 <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
@@ -176,7 +170,7 @@ const UserProfile = () => {
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {books.map((book) => (
+                {books.map(book => (
                   <div key={book.id} className="scale-90 origin-top">
                     <BookCard book={book} />
                   </div>

@@ -64,23 +64,18 @@ const Auth = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-screen overflow-hidden flex items-center justify-center">
-
-      {/* 🎥 Background video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/bg.mp4" type="video/mp4" />
-      </video>
-
-      {/* 🌑 Dark overlay for readability */}
+    <div
+      className="relative min-h-screen w-screen overflow-hidden flex items-center justify-center"
+      style={{
+        backgroundImage: "url('/bookbg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* dark overlay */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-      {/* 🔐 Login Content */}
+      {/* content */}
       <div className="relative w-full max-w-md px-4 z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
@@ -91,13 +86,12 @@ const Auth = () => {
         </div>
 
         <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-white/10">
-
-              <CardHeader>
-      <CardTitle className="font-serif text-white text-center">Welcome</CardTitle>
-      <CardDescription className="text-gray-200 text-center">
-        Sign in to your account or create a new one
-      </CardDescription>
-    </CardHeader>
+          <CardHeader>
+            <CardTitle className="font-serif text-white text-center">Welcome</CardTitle>
+            <CardDescription className="text-gray-200 text-center">
+              Sign in to your account or create a new one
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2">

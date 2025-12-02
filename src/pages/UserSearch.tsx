@@ -5,7 +5,6 @@ import { Navbar } from '@/components/Navbar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Search, User, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -43,14 +42,13 @@ const UserSearch = () => {
 
       if (error) throw error;
 
-      // Get book counts for each user
       const profilesWithBooks = await Promise.all(
         (profiles || []).map(async (profile) => {
           const { count } = await supabase
             .from('books')
             .select('*', { count: 'exact', head: true })
             .eq('created_by', profile.id);
-          
+
           return {
             ...profile,
             book_count: count || 0
@@ -101,30 +99,28 @@ const UserSearch = () => {
             {users.length === 0 && searchQuery && !loading && (
               <Card className="p-8 text-center">
                 <User className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
-                <p className="text-muted-foreground">No users found matching "{searchQuery}"</p>
+                <p className="text-muted-foreground">
+                  No users found matching "{searchQuery}"
+                </p>
               </Card>
             )}
 
             {users.map((user) => (
-              <Card 
-                key={user.id} 
+              <Card
+                key={user.id}
                 className="p-4 hover:bg-accent/50 transition-colors cursor-pointer"
                 onClick={() => navigate(`/user/${user.id}`)}
               >
-                <div className="flex items-center gap-4">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src={user.avatar_url || undefined} />
-                    <AvatarFallback>
-                      {user.username.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  
-                  <div className="flex-1">
-                    <h3 className="font-semibold">@{user.username}</h3>
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
-                      <BookOpen className="w-3 h-3" />
-                      {user.book_count} {user.book_count === 1 ? 'book' : 'books'} added
-                    </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <User className="w-5 h-5 text-muted-foreground" />
+                    <div>
+                      <h3 className="font-semibold">@{user.username}</h3>
+                      <p className="text-sm text-muted-foreground flex items-center gap-1">
+                        <BookOpen className="w-3 h-3" />
+                        {user.book_count} {user.book_count === 1 ? 'book' : 'books'} added
+                      </p>
+                    </div>
                   </div>
 
                   <Button variant="ghost" size="sm">
