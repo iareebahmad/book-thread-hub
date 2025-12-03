@@ -1,6 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard, Calendar, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from './NotificationBell';
 
@@ -57,6 +57,22 @@ export const Navbar = () => {
                 <div className="px-2 py-1.5 text-[11px] font-medium text-muted-foreground uppercase">
                   Navigation
                 </div>
+
+                <DropdownMenuItem
+                  onClick={() => navigate('/my-profile')}
+                  className="rounded-md cursor-pointer py-2 px-2"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  My Profile
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => navigate('/events')}
+                  className="rounded-md cursor-pointer py-2 px-2"
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Events
+                </DropdownMenuItem>
 
                 <DropdownMenuItem
                   onClick={() => navigate('/favorites')}
