@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Heart, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { BookOpen, Heart, ThumbsUp, ThumbsDown, TrendingUp } from 'lucide-react';
 import { useBookVotes } from '@/hooks/useBookVotes';
 import { useFavorite } from '@/hooks/useFavorite';
+import { BookVotersList } from './BookVotersList';
 
 interface BookCardProps {
   book: {
@@ -15,9 +16,10 @@ interface BookCardProps {
     cover_url: string | null;
     genres?: { name: string }[];
   };
+  isTrending?: boolean;
 }
 
-export const BookCard = ({ book }: BookCardProps) => {
+export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
   const navigate = useNavigate();
   const { voteCount, userVote, vote } = useBookVotes(book.id);
   const { isFavorite, toggleFavorite } = useFavorite(book.id);
@@ -41,6 +43,16 @@ export const BookCard = ({ book }: BookCardProps) => {
       className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/95 to-card/50 backdrop-blur-xl hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer rounded-3xl"
       onClick={handleCardClick}
     >
+      {/* Trending Badge */}
+      {isTrending && (
+        <div className="absolute top-0 right-0 z-20">
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl flex items-center gap-1">
+            <TrendingUp className="w-3 h-3" />
+            TRENDING
+          </div>
+        </div>
+      )}
+
       {/* Cover Image with Overlay */}
       <div className="relative aspect-[2/3] overflow-hidden">
         {book.cover_url ? (
@@ -83,11 +95,16 @@ export const BookCard = ({ book }: BookCardProps) => {
           </div>
         )}
 
-        {/* Vote Display Badge */}
-        <div className="absolute top-3 left-3 backdrop-blur-md bg-background/80 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-xl border border-border/50">
-          <ThumbsUp className="w-3 h-3 text-primary" />
-          <span className="text-xs font-bold tabular-nums">{voteCount}</span>
-        </div>
+        {/* Vote Display Badge - Clickable */}
+        <BookVotersList bookId={book.id} voteCount={voteCount}>
+          <div 
+            className="absolute top-3 left-3 backdrop-blur-md bg-background/80 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-xl border border-border/50 cursor-pointer hover:bg-background/95 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ThumbsUp className="w-3 h-3 text-primary" />
+            <span className="text-xs font-bold tabular-nums">{voteCount}</span>
+          </div>
+        </BookVotersList>
       </div>
 
       {/* Content Section */}

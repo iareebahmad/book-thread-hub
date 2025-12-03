@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { BookCard } from '@/components/BookCard';
 import { AddBookDialog } from '@/components/AddBookDialog';
@@ -9,6 +8,7 @@ import { Navbar } from '@/components/Navbar';
 import { LibraryBig, UserRoundPen, Filter } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
+import { useTrendingBooks } from '@/hooks/useTrendingBooks';
 
 interface Book {
   id: string;
@@ -36,6 +36,7 @@ const Library = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { isTrending } = useTrendingBooks();
 
   useEffect(() => {
     if (!user) {
@@ -243,7 +244,7 @@ const Library = () => {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             {filteredBooks.map(book => (
-              <BookCard key={book.id} book={book} />
+              <BookCard key={book.id} book={book} isTrending={isTrending(book.id)} />
             ))}
           </div>
         )}
