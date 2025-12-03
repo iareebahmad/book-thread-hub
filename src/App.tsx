@@ -13,7 +13,9 @@ import Favorites from "./pages/Favorites";
 import Settings from "./pages/Settings";
 import UserSearch from "./pages/UserSearch";
 import UserProfile from "./pages/UserProfile";
+import MyProfile from "./pages/MyProfile";
 import Pricing from "./pages/Pricing";
+import Events from "./pages/Events";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,7 +43,9 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/search-users" element={<UserSearch />} />
             <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/events" element={<Events />} />
 
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
