@@ -1,48 +1,45 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
-import { BookOpen, Check } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
   const { signUp, signIn, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Redirect authenticated user
   useEffect(() => {
-    if (user) navigate('/');
+    if (user) navigate("/");
   }, [user, navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!username.trim()) {
       toast({
         title: "Username required",
-        description: "Please enter a username",
+        description: "Please enter a username.",
         variant: "destructive",
       });
       return;
     }
+
     const { error } = await signUp(email, password, username);
     if (error) {
-      toast({
-        title: "Sign up failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
     } else {
-      toast({
-        title: "Welcome to BookThreads!",
-        description: "Your account has been created successfully.",
-      });
+      toast({ title: "Welcome to BookThreads!", description: "Account created successfully." });
     }
   };
 
@@ -50,48 +47,56 @@ const Auth = () => {
     e.preventDefault();
     const { error } = await signIn(email, password);
     if (error) {
-      toast({
-        title: "Sign in failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast({ title: "Sign in failed", description: error.message, variant: "destructive" });
     } else {
-      toast({
-        title: "Welcome back!",
-        description: "You've successfully signed in.",
-      });
+      toast({ title: "Welcome back!", description: "Signed in successfully." });
     }
   };
 
   return (
     <div
-      className="relative min-h-screen w-screen overflow-hidden flex items-center justify-center"
+      className="relative min-h-screen w-screen flex items-center justify-center overflow-hidden"
       style={{
         backgroundImage: "url('/bookbg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* dark overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-      {/* content */}
+      {/* Pricing Button - Premium glass glow */}
+      <Button
+        onClick={() => navigate("/pricing")}
+        className="absolute top-6 right-6 rounded-full px-6 py-2 text-white
+                   border border-white/40 bg-white/10 backdrop-blur-md font-medium
+                   transition-all duration-300
+                   hover:bg-white/20 hover:border-white/70
+                   hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
+      >
+         Pricing
+      </Button>
+
+      {/* Auth Box */}
       <div className="relative w-full max-w-md px-4 z-10">
+        {/* Logo & App Name */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 shadow-lg shadow-black/25">
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="text-4xl font-serif font-bold text-white mb-2">BookThreads</h1>
           <p className="text-gray-200">Where readers gather to discuss</p>
         </div>
 
-        <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-white/10">
+        {/* Auth Card */}
+        <Card className="bg-white/15 backdrop-blur-xl border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="font-serif text-white text-center">Welcome</CardTitle>
-            <CardDescription className="text-gray-200 text-center">
-              Sign in to your account or create a new one
+            <CardTitle className="font-serif text-white text-center text-2xl">Welcome</CardTitle>
+            <CardDescription className="text-gray-300 text-center">
+              Sign in or create a new account
             </CardDescription>
           </CardHeader>
+
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
@@ -99,6 +104,7 @@ const Auth = () => {
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
 
+              {/* SIGN IN */}
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
@@ -119,10 +125,11 @@ const Auth = () => {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full">Sign In</Button>
+                  <Button type="submit" className="w-full mt-2">Sign In</Button>
                 </form>
               </TabsContent>
 
+              {/* SIGN UP */}
               <TabsContent value="signup">
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div className="space-y-2">
@@ -152,58 +159,12 @@ const Auth = () => {
                       minLength={6}
                     />
                   </div>
-                  <Button type="submit" className="w-full">Create Account</Button>
+                  <Button type="submit" className="w-full mt-2">Create Account</Button>
                 </form>
               </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
-
-        {/* Pricing Plans */}
-        <div className="mt-12">
-          <h2 className="text-3xl font-bold text-center text-white mb-8">Our Plans</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Essential Plan */}
-            <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-white/10">
-              <CardHeader>
-                <CardTitle className="text-white text-2xl">Essential</CardTitle>
-                <CardDescription className="text-gray-200">
-                  <span className="text-3xl font-bold text-white">Free</span>
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-start gap-2 text-white">
-                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>1 book upload/month</span>
-                </div>
-                <div className="flex items-start gap-2 text-white">
-                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>Coming Soon</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Elite Plan */}
-            <Card className="bg-white/15 backdrop-blur-xl shadow-xl border border-primary/40 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-                Popular
-              </div>
-              <CardHeader>
-                <CardTitle className="text-white text-2xl">Elite</CardTitle>
-                <CardDescription className="text-gray-200">
-                  <span className="text-3xl font-bold text-white">₹59</span>
-                  <span className="text-gray-300">/month</span>
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-start gap-2 text-white">
-                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>Add unlimited books</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </div>
     </div>
   );
