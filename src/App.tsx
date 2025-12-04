@@ -16,6 +16,7 @@ import UserProfile from "./pages/UserProfile";
 import MyProfile from "./pages/MyProfile";
 import Pricing from "./pages/Pricing";
 import Events from "./pages/Events";
+import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/admin" element={<AdminPanel />} />
 
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />

@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Heart, ThumbsUp, ThumbsDown, TrendingUp } from 'lucide-react';
+import { BookOpen, Heart, ThumbsUp, ThumbsDown, TrendingUp, MessageCircle } from 'lucide-react';
 import { useBookVotes } from '@/hooks/useBookVotes';
 import { useFavorite } from '@/hooks/useFavorite';
+import { useBookThreadCount } from '@/hooks/useBookThreadCount';
 import { BookVotersList } from './BookVotersList';
-
 interface BookCardProps {
   book: {
     id: string;
@@ -23,6 +23,7 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
   const navigate = useNavigate();
   const { voteCount, userVote, vote } = useBookVotes(book.id);
   const { isFavorite, toggleFavorite } = useFavorite(book.id);
+  const threadCount = useBookThreadCount(book.id);
 
   const handleCardClick = () => {
     navigate(`/book/${book.id}`);
@@ -116,6 +117,14 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
           </h3>
           <p className="text-xs text-muted-foreground font-medium">{book.author}</p>
         </div>
+
+        {/* Thread Activity Indicator */}
+        {threadCount > 0 && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/40 rounded-full px-3 py-1.5 w-fit">
+            <MessageCircle className="w-3.5 h-3.5 text-primary" />
+            <span className="font-medium">{threadCount} {threadCount === 1 ? 'thread' : 'threads'} active</span>
+          </div>
+        )}
 
         {/* Interactive Vote Bar */}
         <div className="flex items-center gap-2 p-2 rounded-full bg-muted/30 border border-border/30">

@@ -1,8 +1,9 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard, Calendar, User } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard, Calendar, User, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from './NotificationBell';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 import {
   DropdownMenu,
@@ -14,6 +15,7 @@ import {
 export const Navbar = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { isAdmin } = useIsAdmin();
 
   return (
     <nav className="border-b border-border/50 bg-card/60 backdrop-blur-xl sticky top-0 z-50 glow">
@@ -97,6 +99,22 @@ export const Navbar = () => {
                   <CreditCard className="w-4 h-4 mr-2" />
                   Pricing
                 </DropdownMenuItem>
+
+                {/* Admin Section */}
+                {isAdmin && (
+                  <>
+                    <div className="px-2 py-1.5 text-[11px] font-medium text-muted-foreground uppercase mt-2">
+                      Admin
+                    </div>
+                    <DropdownMenuItem
+                      onClick={() => navigate('/admin')}
+                      className="rounded-md cursor-pointer py-2 px-2 text-primary"
+                    >
+                      <Shield className="w-4 h-4 mr-2" />
+                      Admin Panel
+                    </DropdownMenuItem>
+                  </>
+                )}
 
                 {/* Section: Preferences */}
                 <div className="px-2 py-1.5 text-[11px] font-medium text-muted-foreground uppercase mt-2">
