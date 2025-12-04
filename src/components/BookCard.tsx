@@ -106,6 +106,14 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
             <span className="text-xs font-bold tabular-nums">{voteCount}</span>
           </div>
         </BookVotersList>
+
+        {/* Thread Count Badge */}
+        {threadCount > 0 && (
+          <div className="absolute bottom-3 right-3 backdrop-blur-md bg-primary rounded-full px-2.5 py-1 flex items-center gap-1 shadow-xl animate-pulse">
+            <MessageCircle className="w-3 h-3 text-primary-foreground" />
+            <span className="text-[10px] font-bold text-primary-foreground">{threadCount}</span>
+          </div>
+        )}
       </div>
 
       {/* Content Section */}
@@ -117,14 +125,6 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
           </h3>
           <p className="text-xs text-muted-foreground font-medium">{book.author}</p>
         </div>
-
-        {/* Thread Activity Indicator */}
-        {threadCount > 0 && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/40 rounded-full px-3 py-1.5 w-fit">
-            <MessageCircle className="w-3.5 h-3.5 text-primary" />
-            <span className="font-medium">{threadCount} {threadCount === 1 ? 'thread' : 'threads'} active</span>
-          </div>
-        )}
 
         {/* Interactive Vote Bar */}
         <div className="flex items-center gap-2 p-2 rounded-full bg-muted/30 border border-border/30">
