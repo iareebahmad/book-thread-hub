@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bell } from 'lucide-react';
+import { Bell, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
+import { toast } from 'sonner';
 
 interface Notification {
   id: string;
@@ -75,6 +76,22 @@ export const NotificationBell = () => {
     fetchNotifications();
   };
 
+  const deleteNotification = async (e: React.MouseEvent, notificationId: string) => {
+    e.stopPropagation();
+    
+    const { error } = await supabase
+      .from('notifications')
+      .delete()
+      .eq('id', notificationId);
+
+    if (error) {
+      toast.error('Failed to delete notification');
+      return;
+    }
+    
+    fetchNotifications();
+  };
+
   const handleNotificationClick = async (notification: Notification) => {
     if (!notification.read) {
       await markAsRead(notification.id);
@@ -110,12 +127,12 @@ export const NotificationBell = () => {
           ) : (
             <div className="divide-y divide-border">
               {notifications.map((notification) => (
-                <button
+                <div
                   key={notification.id}
-                  onClick={() => handleNotificationClick(notification)}
-                  className={`w-full p-4 text-left hover:bg-accent transition-colors ${
+                  className={`relative w-full p-4 text-left hover:bg-accent transition-colors cursor-pointer ${
                     !notification.read ? 'bg-accent/50' : ''
                   }`}
+                  onClick={() => handleNotificationClick(notification)}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
@@ -127,11 +144,20 @@ export const NotificationBell = () => {
                         {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                       </p>
                     </div>
-                    {!notification.read && (
-                      <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1" />
-                    )}
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {!notification.read && (
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      )}
+                      <button
+                        onClick={(e) => deleteNotification(e, notification.id)}
+                        className="p-1 rounded-full hover:bg-destructive/20 text-muted-foreground hover:text-destructive transition-colors"
+                        title="Delete notification"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           )}
