@@ -2,62 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* BookThreads Design System - Calm + Trustworthy Blue Theme */
+/* BookThreads Design System - Warm Literary Aesthetic */
 
 @layer base {
   :root {
-    /* Dark, modern backgrounds with depth */
-    --background: 225 10% 8%;
-    --foreground: 0 0% 98%;
+    /* Rich, warm dark backgrounds with literary depth */
+    --background: 30 8% 6%;
+    --foreground: 40 15% 95%;
 
-    /* Cards with glassmorphism effect */
-    --card: 225 8% 12%;
-    --card-foreground: 0 0% 98%;
+    /* Cards with warm glassmorphism */
+    --card: 30 10% 10%;
+    --card-foreground: 40 15% 95%;
 
     /* Popovers */
-    --popover: 225 8% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 30 10% 10%;
+    --popover-foreground: 40 15% 95%;
 
-    /* Primary – Calm & Trustworthy Blue */
-    --primary: 215 85% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary – Warm Amber/Gold for literary feel */
+    --primary: 35 90% 55%;
+    --primary-foreground: 30 8% 6%;
 
-    /* Secondary – Soft blue-gray for harmony */
-    --secondary: 220 6% 20%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary – Warm brown-gray */
+    --secondary: 30 8% 16%;
+    --secondary-foreground: 40 15% 95%;
 
-    /* Muted – Text for low-emphasis UI */
-    --muted: 225 6% 15%;
-    --muted-foreground: 225 5% 65%;
+    /* Muted – Soft sepia tones */
+    --muted: 30 6% 14%;
+    --muted-foreground: 35 10% 60%;
 
-    /* Accent – Light aqua blue for highlights */
-    --accent: 200 90% 65%;
-    --accent-foreground: 225 10% 8%;
+    /* Accent – Soft terracotta */
+    --accent: 15 65% 55%;
+    --accent-foreground: 30 8% 6%;
 
-    /* Destructive – Pink (unchanged) */
-    --destructive: 340 85% 60%;
+    /* Destructive */
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders */
-    --border: 225 5% 22%;
-    --input: 225 5% 22%;
-    --ring: 215 85% 60%;
+    /* Borders – warm tones */
+    --border: 30 8% 20%;
+    --input: 30 8% 20%;
+    --ring: 35 90% 55%;
 
     /* Modern, softer radius */
     --radius: 1rem;
 
-    /* Glowing shadows – soft blue glow */
-    --shadow-glow: 0 8px 32px rgba(45, 130, 255, 0.15);
-    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.25);
-    --shadow-hover: 0 12px 48px rgba(45, 130, 255, 0.25);
+    /* Warm glowing shadows */
+    --shadow-glow: 0 8px 32px rgba(200, 150, 80, 0.12);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+    --shadow-hover: 0 16px 48px rgba(200, 150, 80, 0.2);
 
     /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(215 85% 60%), hsl(200 75% 58%));
-    --gradient-accent: linear-gradient(135deg, hsl(200 90% 65%), hsl(190 85% 60%));
-    --gradient-bg: linear-gradient(180deg, hsl(225 10% 8%), hsl(225 12% 10%));
+    /* Gradients – warm literary tones */
+    --gradient-primary: linear-gradient(135deg, hsl(35 90% 55%), hsl(25 80% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(15 65% 55%), hsl(25 70% 50%));
+    --gradient-bg: linear-gradient(180deg, hsl(30 8% 6%), hsl(30 10% 8%));
   }
 }
 
@@ -68,8 +68,11 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(180deg, rgba(18, 19, 24, 0.95), rgba(20, 22, 28, 0.95)), 
-                url('/bookbg.jpg') center/cover fixed;
+    background: 
+      radial-gradient(ellipse at top, rgba(60, 45, 30, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(40, 30, 20, 0.3) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(30 8% 6%) 0%, hsl(25 10% 8%) 100%);
+    background-attachment: fixed;
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
@@ -113,12 +116,13 @@
   /* Glassmorphism card styling */
   .glass-card {
     @apply bg-card/80 rounded-2xl border border-border/50;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     box-shadow: var(--shadow-card);
   }
 
-  /* Gradient text */
+  /* Gradient text with serif font */
   .gradient-text {
+    @apply font-serif;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -128,6 +132,19 @@
   /* Glow effect */
   .glow {
     box-shadow: var(--shadow-glow);
+  }
+
+  /* Subtle texture overlay */
+  .texture-overlay {
+    position: relative;
+  }
+  .texture-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
   }
 }
 

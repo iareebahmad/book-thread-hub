@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { BookCard } from '@/components/BookCard';
 import { AddBookDialog } from '@/components/AddBookDialog';
 import { Navbar } from '@/components/Navbar';
-import { LibraryBig, UserRoundPen, Filter } from 'lucide-react';
+import { LibraryBig, Search, SlidersHorizontal } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 import { useTrendingBooks } from '@/hooks/useTrendingBooks';
@@ -124,129 +124,98 @@ const Library = () => {
   }
 
   return (
-    <div 
-      className="min-h-screen bg-background"
-      style={{
-        backgroundImage: "url('/bookbg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-12 slide-up">
+      <main className="container mx-auto px-4 py-8 md:py-12 slide-up">
         {/* Active Event Banner */}
         <ActiveEventBanner />
 
-        {/* Hero Section */}
-        <div className="mb-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
-            <p className="text-lg text-muted-foreground">
-              Discover and discuss your favorite books
-            </p>
+        {/* Hero Header */}
+        <div className="mb-8 md:mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 gradient-text">Library</h1>
+              <p className="text-muted-foreground">
+                Discover and discuss your favorite reads
+              </p>
+            </div>
             <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
-          </div>
-
-          {/* Stats Bar */}
-          <div className="glass-card p-6 flex flex-wrap gap-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <LibraryBig className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{books.length}</p>
-                <p className="text-sm text-muted-foreground">Books</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                <Filter className="w-6 h-6 text-accent" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{genres.length}</p>
-                <p className="text-sm text-muted-foreground">Genres</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <UserRoundPen className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{authors.length}</p>
-                <p className="text-sm text-muted-foreground">Authors</p>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Filters Section */}
-        <div className="glass-card p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="relative group">
-              <UserRoundPen  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+        {/* Search & Filters */}
+        <div className="glass-card p-4 md:p-6 mb-8">
+          <div className="flex flex-col md:flex-row gap-3">
+            {/* Search Input */}
+            <div className="relative flex-1 group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <Input
-                placeholder="Search by title or author..."
+                placeholder="Search books..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-12 bg-background/50 border-border/50 focus:border-primary transition-all"
+                className="pl-11 h-11 bg-background/50 border-border/50 focus:border-primary rounded-xl transition-all"
               />
             </div>
             
-            <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-              <SelectTrigger className="h-12 bg-background/50 border-border/50">
-                <SelectValue placeholder="Filter by genre" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Genres</SelectItem>
-                {genres.map(genre => (
-                  <SelectItem key={genre.id} value={genre.name}>
-                    {genre.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {/* Filters */}
+            <div className="flex gap-2 flex-wrap md:flex-nowrap">
+              <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+                <SelectTrigger className="h-11 w-full md:w-[160px] bg-background/50 border-border/50 rounded-xl">
+                  <SlidersHorizontal className="w-4 h-4 mr-2 text-muted-foreground" />
+                  <SelectValue placeholder="Genre" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Genres</SelectItem>
+                  {genres.map(genre => (
+                    <SelectItem key={genre.id} value={genre.name}>
+                      {genre.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-            <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
-              <SelectTrigger className="h-12 bg-background/50 border-border/50">
-                <SelectValue placeholder="Filter by author" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Authors</SelectItem>
-                {authors.map(author => (
-                  <SelectItem key={author} value={author}>
-                    {author}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
+                <SelectTrigger className="h-11 w-full md:w-[160px] bg-background/50 border-border/50 rounded-xl">
+                  <SelectValue placeholder="Author" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Authors</SelectItem>
+                  {authors.map(author => (
+                    <SelectItem key={author} value={author}>
+                      {author}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           
           {/* Active Filters Display */}
           {(searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all') && (
-            <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Showing {filteredBooks.length} of {books.length} books</span>
+            <div className="mt-3 pt-3 border-t border-border/30 flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Found {filteredBooks.length} books</span>
             </div>
           )}
         </div>
 
         {/* Books Grid */}
         {filteredBooks.length === 0 ? (
-          <div className="glass-card p-16 text-center">
+          <div className="glass-card p-12 md:p-16 text-center">
             <div className="max-w-md mx-auto space-y-4">
-              <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mx-auto">
-                <LibraryBig className="w-10 h-10 text-muted-foreground" />
+              <div className="w-16 h-16 rounded-full bg-muted/30 flex items-center justify-center mx-auto">
+                <LibraryBig className="w-8 h-8 text-muted-foreground" />
               </div>
-              <h3 className="text-2xl font-bold">No books found</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold">No books found</h3>
+              <p className="text-muted-foreground text-sm">
                 {searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all'
-                  ? 'Try adjusting your filters to discover more books'
-                  : 'Be the first to add a book to the library'}
+                  ? 'Try adjusting your filters'
+                  : 'Be the first to add a book'}
               </p>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
             {filteredBooks.map(book => (
               <BookCard key={book.id} book={book} isTrending={isTrending(book.id)} />
             ))}
