@@ -10,6 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, BookOpen, User, UserPlus, UserMinus, TrendingUp, Heart } from 'lucide-react';
 import { useFollow } from '@/hooks/useFollow';
 import { FollowersList } from '@/components/FollowersList';
+import { BookFlameButton } from '@/components/BookFlameButton';
 
 interface UserProfile {
   id: string;
@@ -186,24 +187,27 @@ const UserProfile = () => {
               )}
 
               {user && user.id !== profile.id && (
-                <Button
-                  onClick={toggleFollow}
-                  disabled={followLoading}
-                  variant={isFollowing ? "outline" : "default"}
-                  className="gap-2"
-                >
-                  {isFollowing ? (
-                    <>
-                      <UserMinus className="w-4 h-4" />
-                      Unfollow
-                    </>
-                  ) : (
-                    <>
-                      <UserPlus className="w-4 h-4" />
-                      Follow
-                    </>
-                  )}
-                </Button>
+                <div className="flex gap-2 flex-wrap">
+                  <Button
+                    onClick={toggleFollow}
+                    disabled={followLoading}
+                    variant={isFollowing ? "outline" : "default"}
+                    className="gap-2"
+                  >
+                    {isFollowing ? (
+                      <>
+                        <UserMinus className="w-4 h-4" />
+                        Unfollow
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus className="w-4 h-4" />
+                        Follow
+                      </>
+                    )}
+                  </Button>
+                  <BookFlameButton targetUserId={profile.id} targetUsername={profile.username} />
+                </div>
               )}
             </div>
           </div>

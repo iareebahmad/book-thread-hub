@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/Navbar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Users, BookOpen, Clock, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { format, differenceInDays } from 'date-fns';
+import { EventParticipantsList } from '@/components/EventParticipantsList';
 
 interface Event {
   id: string;
@@ -216,10 +217,12 @@ const Events = () => {
                         <Clock className="w-4 h-4" />
                         <span>{getDaysRemaining(event.end_date)} days remaining</span>
                       </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span>{event.participant_count} participants</span>
-                      </div>
+                      <EventParticipantsList eventId={event.id} participantCount={event.participant_count}>
+                        <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer">
+                          <Users className="w-4 h-4" />
+                          <span>{event.participant_count} participants</span>
+                        </button>
+                      </EventParticipantsList>
                     </div>
 
                     <div className="flex gap-3">

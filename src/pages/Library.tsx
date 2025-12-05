@@ -9,6 +9,7 @@ import { LibraryBig, UserRoundPen, Filter } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 import { useTrendingBooks } from '@/hooks/useTrendingBooks';
+import { ActiveEventBanner } from '@/components/ActiveEventBanner';
 
 interface Book {
   id: string;
@@ -135,6 +136,9 @@ const Library = () => {
       <Navbar />
       
       <main className="container mx-auto px-4 py-12 slide-up">
+        {/* Active Event Banner */}
+        <ActiveEventBanner />
+
         {/* Hero Section */}
         <div className="mb-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
