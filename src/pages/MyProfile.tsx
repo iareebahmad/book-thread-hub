@@ -10,6 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { User, BookOpen, ThumbsUp, MessageSquare } from 'lucide-react';
+import { UserBadge } from '@/components/UserBadge';
 
 interface UserProfile {
   username: string;
@@ -109,15 +110,7 @@ const MyProfile = () => {
   }
 
   return (
-    <div 
-      className="min-h-screen bg-background"
-      style={{
-        backgroundImage: "url('/bookbg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div className="min-h-screen">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 max-w-4xl">
@@ -133,7 +126,10 @@ const MyProfile = () => {
               </Avatar>
               
               <div className="flex-1 text-center md:text-left">
-                <h1 className="text-3xl font-bold mb-2">{profile?.username}</h1>
+                <div className="flex items-center justify-center md:justify-start gap-3 flex-wrap mb-2">
+                  <h1 className="text-3xl font-bold">{profile?.username}</h1>
+                  {user && <UserBadge userId={user.id} showLabel />}
+                </div>
                 {profile?.bio && (
                   <p className="text-muted-foreground mb-3">{profile.bio}</p>
                 )}

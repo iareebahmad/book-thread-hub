@@ -11,6 +11,7 @@ import { ArrowLeft, BookOpen, User, UserPlus, UserMinus, TrendingUp, Heart } fro
 import { useFollow } from '@/hooks/useFollow';
 import { FollowersList } from '@/components/FollowersList';
 import { BookFlameButton } from '@/components/BookFlameButton';
+import { UserBadge } from '@/components/UserBadge';
 
 interface UserProfile {
   id: string;
@@ -135,7 +136,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navbar />
 
       <main className="container mx-auto px-4 py-8">
@@ -156,7 +157,10 @@ const UserProfile = () => {
             </div>
 
             <div className="flex-1">
-              <h1 className="text-3xl font-serif font-bold mb-2">@{profile.username}</h1>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="text-3xl font-serif font-bold">@{profile.username}</h1>
+                <UserBadge userId={profile.id} showLabel />
+              </div>
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                 <button

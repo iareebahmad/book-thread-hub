@@ -17,6 +17,7 @@ import MyProfile from "./pages/MyProfile";
 import Pricing from "./pages/Pricing";
 import Events from "./pages/Events";
 import AdminPanel from "./pages/AdminPanel";
+import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/events" element={<Events />} />
             <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/about" element={<AboutUs />} />
 
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />

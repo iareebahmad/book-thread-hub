@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { BookCard } from '@/components/BookCard';
 import { AddBookDialog } from '@/components/AddBookDialog';
 import { Navbar } from '@/components/Navbar';
-import { LibraryBig, UserRoundPen, Filter } from 'lucide-react';
+import { LibraryBig, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 import { useTrendingBooks } from '@/hooks/useTrendingBooks';
@@ -124,15 +124,7 @@ const Library = () => {
   }
 
   return (
-    <div 
-      className="min-h-screen bg-background"
-      style={{
-        backgroundImage: "url('/bookbg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div className="min-h-screen">
       <Navbar />
       
       <main className="container mx-auto px-4 py-12 slide-up">
@@ -148,43 +140,13 @@ const Library = () => {
             <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
           </div>
 
-          {/* Stats Bar */}
-          <div className="glass-card p-6 flex flex-wrap gap-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <LibraryBig className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{books.length}</p>
-                <p className="text-sm text-muted-foreground">Books</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                <Filter className="w-6 h-6 text-accent" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{genres.length}</p>
-                <p className="text-sm text-muted-foreground">Genres</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <UserRoundPen className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{authors.length}</p>
-                <p className="text-sm text-muted-foreground">Authors</p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Filters Section */}
         <div className="glass-card p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative group">
-              <UserRoundPen  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <Input
                 placeholder="Search by title or author..."
                 value={searchQuery}

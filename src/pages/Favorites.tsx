@@ -58,8 +58,8 @@ const Favorites = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
+  return (
+      <div className="min-h-screen">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
           <Heart className="w-12 h-12 text-primary animate-pulse" />
@@ -69,7 +69,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 page-turn">
