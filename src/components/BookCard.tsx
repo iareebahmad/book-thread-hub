@@ -7,6 +7,8 @@ import { useBookVotes } from '@/hooks/useBookVotes';
 import { useFavorite } from '@/hooks/useFavorite';
 import { useBookThreadCount } from '@/hooks/useBookThreadCount';
 import { BookVotersList } from './BookVotersList';
+import { UserBadge } from './UserBadge';
+
 interface BookCardProps {
   book: {
     id: string;
@@ -15,6 +17,7 @@ interface BookCardProps {
     description: string | null;
     cover_url: string | null;
     genres?: { name: string }[];
+    created_by?: string | null;
   };
   isTrending?: boolean;
 }
@@ -120,7 +123,10 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
           <h3 className="font-bold text-base leading-tight line-clamp-2 mb-1.5 group-hover:text-primary transition-colors duration-300">
             {book.title}
           </h3>
-          <p className="text-xs text-muted-foreground font-medium">{book.author}</p>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs text-muted-foreground font-medium truncate">{book.author}</p>
+            {book.created_by && <UserBadge userId={book.created_by} />}
+          </div>
         </div>
 
         {/* Interactive Vote Bar */}
