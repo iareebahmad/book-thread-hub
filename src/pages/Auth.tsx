@@ -65,17 +65,29 @@ const Auth = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-      {/* Pricing Button - Premium glass glow */}
-      <Button
-        onClick={() => navigate("/pricing")}
-        className="absolute top-6 right-6 rounded-full px-6 py-2 text-white
-                   border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                   transition-all duration-300
-                   hover:bg-white/20 hover:border-white/70
-                   hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-      >
-         Pricing
-      </Button>
+      {/* Top Right Buttons */}
+      <div className="absolute top-6 right-6 flex gap-3 z-20">
+        <Button
+          onClick={() => navigate("/about")}
+          className="rounded-full px-6 py-2 text-white
+                     border border-white/40 bg-white/10 backdrop-blur-md font-medium
+                     transition-all duration-300
+                     hover:bg-white/20 hover:border-white/70
+                     hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
+        >
+          About Us
+        </Button>
+        <Button
+          onClick={() => navigate("/pricing")}
+          className="rounded-full px-6 py-2 text-white
+                     border border-white/40 bg-white/10 backdrop-blur-md font-medium
+                     transition-all duration-300
+                     hover:bg-white/20 hover:border-white/70
+                     hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
+        >
+          Pricing
+        </Button>
+      </div>
 
       {/* Auth Box */}
       <div className="relative w-full max-w-md px-4 z-10">

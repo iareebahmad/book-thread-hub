@@ -69,8 +69,8 @@ const ThreadDetail = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
+  return (
+      <div className="min-h-screen">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
           <MessageSquare className="w-12 h-12 text-primary animate-pulse" />
@@ -80,8 +80,8 @@ const ThreadDetail = () => {
   }
 
   if (!thread) {
-    return (
-      <div className="min-h-screen bg-background">
+  return (
+      <div className="min-h-screen">
         <Navbar />
         <div className="container mx-auto px-4 py-8 text-center">
           <h2 className="text-2xl font-serif font-bold mb-4">Thread not found</h2>
@@ -92,7 +92,7 @@ const ThreadDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 page-turn max-w-4xl">

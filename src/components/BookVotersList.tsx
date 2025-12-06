@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
@@ -57,11 +57,17 @@ export const BookVotersList = ({ bookId, voteCount, children }: BookVotersListPr
     navigate(`/user/${userId}`);
   };
 
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpen(true);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <div onClick={handleTriggerClick} className="cursor-pointer">
         {children}
-      </DialogTrigger>
+      </div>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">

@@ -98,10 +98,7 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
 
         {/* Vote Display Badge - Clickable */}
         <BookVotersList bookId={book.id} voteCount={voteCount}>
-          <div 
-            className="absolute top-3 left-3 backdrop-blur-md bg-background/80 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-xl border border-border/50 cursor-pointer hover:bg-background/95 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="absolute top-3 left-3 backdrop-blur-md bg-background/80 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-xl border border-border/50 cursor-pointer hover:bg-background/95 transition-colors">
             <ThumbsUp className="w-3 h-3 text-primary" />
             <span className="text-xs font-bold tabular-nums">{voteCount}</span>
           </div>
