@@ -18,6 +18,7 @@ interface Book {
   description: string | null;
   cover_url: string | null;
   created_at: string;
+  created_by: string | null;
   genres?: { name: string }[];
 }
 
