@@ -148,39 +148,6 @@ export type Database = {
           },
         ]
       }
-      event_stats: {
-        Row: {
-          archived_at: string
-          book_author: string
-          book_id: string
-          book_title: string
-          end_date: string
-          id: string
-          participant_count: number
-          start_date: string
-        }
-        Insert: {
-          archived_at?: string
-          book_author: string
-          book_id: string
-          book_title: string
-          end_date: string
-          id?: string
-          participant_count?: number
-          start_date: string
-        }
-        Update: {
-          archived_at?: string
-          book_author?: string
-          book_id?: string
-          book_title?: string
-          end_date?: string
-          id?: string
-          participant_count?: number
-          start_date?: string
-        }
-        Relationships: []
-      }
       events: {
         Row: {
           book_id: string

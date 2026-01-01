@@ -1,6 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, Calendar, User, Shield } from 'lucide-react';
+import { BookOpen, LogOut, Heart, Settings, Library, Users, Menu, CreditCard, Calendar, User, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from './NotificationBell';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
@@ -36,7 +36,7 @@ export const Navbar = () => {
             <Button 
               variant="ghost" 
               size="icon"
-              onClick={() => navigate('/library')}
+              onClick={() => navigate('/')}
             >
               <Library className="w-6 h-6" />
             </Button>
@@ -92,6 +92,13 @@ export const Navbar = () => {
                   Search People
                 </DropdownMenuItem>
 
+                <DropdownMenuItem
+                  onClick={() => navigate('/pricing')}
+                  className="rounded-md cursor-pointer py-2 px-2"
+                >
+                  <CreditCard className="w-4 h-4 mr-2" />
+                  Pricing
+                </DropdownMenuItem>
 
                 {/* Admin Section */}
                 {isAdmin && (

@@ -1,10 +1,1 @@
 project_id = "gtowzgwspfbjlgwsbosh"
-
-[functions.delete-account]
-verify_jwt = true
-
-[functions.cleanup-expired-events]
-verify_jwt = false
-
-[functions.generate-avatar-character]
-verify_jwt = true
