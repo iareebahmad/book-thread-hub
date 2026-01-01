@@ -185,9 +185,6 @@ const Landing = () => {
             <button onClick={() => navigate('/about')} className="hover:text-foreground transition-colors">
               About
             </button>
-            <button onClick={() => navigate('/pricing')} className="hover:text-foreground transition-colors">
-              Pricing
-            </button>
           </div>
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} BookThreads. All rights reserved.
