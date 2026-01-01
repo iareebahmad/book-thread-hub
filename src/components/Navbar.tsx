@@ -36,7 +36,7 @@ export const Navbar = () => {
             <Button 
               variant="ghost" 
               size="icon"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/library')}
             >
               <Library className="w-6 h-6" />
             </Button>

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
+import Landing from "./pages/Landing";
 import Library from "./pages/Library";
 import Auth from "./pages/Auth";
 import BookDetail from "./pages/BookDetail";
@@ -31,7 +32,10 @@ const App = () => (
         <AuthProvider>
           <Routes>
             {/* Landing page */}
-            <Route path="/" element={<Library />} />
+            <Route path="/" element={<Landing />} />
+            
+            {/* Library */}
+            <Route path="/library" element={<Library />} />
 
             {/* Auth page with Spline background */}
             <Route path="/auth" element={<Auth />} />
