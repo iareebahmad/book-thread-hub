@@ -56,13 +56,16 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
 
   if (!character) return null;
 
+  const isOwnCard = !username;
+  const triggerLabel = isOwnCard ? "My Avatar Card" : "View Avatar Card";
+
   return (
     <Dialog>
       {showTrigger && (
         <DialogTrigger asChild>
           <Button variant="outline" className="gap-2 border-primary/30 hover:bg-primary/10">
             <Sparkles className="w-4 h-4 text-primary" />
-            My Avatar Card
+            {triggerLabel}
           </Button>
         </DialogTrigger>
       )}
