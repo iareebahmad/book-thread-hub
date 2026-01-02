@@ -2,9 +2,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAvatarCard } from '@/hooks/useAvatarCard';
-import { Sparkles, Share2, Check, Copy } from 'lucide-react';
-import { useState } from 'react';
+import { Sparkles, Share2, Check, Download, BookOpen } from 'lucide-react';
+import { useState, useRef } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { toPng } from 'html-to-image';
 
 interface AvatarCardDialogProps {
   userId: string;
@@ -15,6 +16,8 @@ interface AvatarCardDialogProps {
 export const AvatarCardDialog = ({ userId, showTrigger = true, username }: AvatarCardDialogProps) => {
   const { character, loading } = useAvatarCard(userId);
   const [copied, setCopied] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
     const shareText = `🌟 My BookThreads Avatar: ${character?.name}\n\n"${character?.description}"\n\nTraits: ${character?.traits.join(', ')}\n\nDiscover your reading personality at BookThreads!`;
@@ -27,7 +30,6 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
           url: window.location.origin,
         });
       } catch (err) {
-        // User cancelled or share failed, fallback to copy
         copyToClipboard(shareText);
       }
     } else {
@@ -45,6 +47,38 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownload = async () => {
+    if (!cardRef.current || !character) return;
+    
+    setDownloading(true);
+    try {
+      const dataUrl = await toPng(cardRef.current, {
+        quality: 1,
+        pixelRatio: 2,
+        backgroundColor: '#1a1a2e',
+      });
+      
+      const link = document.createElement('a');
+      link.download = `bookthreads-avatar-${character.name.toLowerCase().replace(/\s+/g, '-')}.png`;
+      link.href = dataUrl;
+      link.click();
+      
+      toast({
+        title: "Avatar card downloaded!",
+        description: "Your avatar card has been saved as an image.",
+      });
+    } catch (error) {
+      console.error('Download failed:', error);
+      toast({
+        title: "Download failed",
+        description: "Unable to download the avatar card. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   if (loading) {
     return showTrigger ? (
       <Button variant="outline" disabled className="gap-2">
@@ -58,6 +92,7 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
 
   const isOwnCard = !username;
   const triggerLabel = isOwnCard ? "My Avatar Card" : "View Avatar Card";
+  const displayName = username || "Your";
 
   return (
     <Dialog>
@@ -77,58 +112,83 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
           </DialogTitle>
         </DialogHeader>
         
-        <div className="flex flex-col items-center text-center space-y-4">
+        {/* Downloadable Card */}
+        <div 
+          ref={cardRef}
+          className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]"
+        >
+          {/* BookThreads Logo Header */}
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center justify-center w-8 h-8 bg-primary rounded-full">
+              <BookOpen className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className="text-white font-serif font-bold text-lg">BookThreads</span>
+          </div>
+
           {/* Character Image */}
-          <div className="relative">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg">
+          <div className="relative mb-4">
+            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg shadow-primary/20">
               <img 
                 src={character.image} 
                 alt={character.name}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  target.parentElement?.classList.add('flex', 'items-center', 'justify-center', 'bg-muted');
-                  const fallback = document.createElement('div');
-                  fallback.innerHTML = '<svg class="w-12 h-12 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>';
-                  target.parentElement?.appendChild(fallback.firstChild!);
-                }}
+                crossOrigin="anonymous"
               />
             </div>
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-              <Badge className="bg-primary text-primary-foreground shadow-md">
+              <Badge className="bg-primary text-primary-foreground shadow-md text-xs">
                 Avatar
               </Badge>
             </div>
           </div>
 
+          {/* Username */}
+          <p className="text-gray-400 text-sm mb-1">@{displayName}</p>
+
           {/* Character Name */}
-          <h3 className="text-2xl font-serif font-bold text-primary mt-4">
+          <h3 className="text-xl font-serif font-bold text-primary mb-3">
             {character.name}
           </h3>
 
           {/* Traits */}
-          <div className="flex gap-2 flex-wrap justify-center">
+          <div className="flex gap-2 flex-wrap justify-center mb-3">
             {character.traits.map((trait, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
+              <Badge key={index} className="text-xs bg-white/10 text-white border-white/20">
                 {trait}
               </Badge>
             ))}
           </div>
 
           {/* Description */}
-          <p className="text-muted-foreground text-sm leading-relaxed px-2">
+          <p className="text-gray-300 text-sm leading-relaxed px-2 mb-4">
             {character.description}
           </p>
 
-          {/* Share Button */}
+          {/* Footer */}
+          <div className="text-gray-500 text-xs flex items-center gap-1">
+            <Sparkles className="w-3 h-3" />
+            bookthreads.app
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2 justify-center mt-2">
+          <Button 
+            onClick={handleDownload}
+            disabled={downloading}
+            variant="default"
+            className="gap-2"
+          >
+            <Download className="w-4 h-4" />
+            {downloading ? 'Downloading...' : 'Download'}
+          </Button>
           <Button 
             onClick={handleShare} 
             variant="outline" 
-            className="gap-2 mt-2 border-primary/30 hover:bg-primary/10"
+            className="gap-2 border-primary/30 hover:bg-primary/10"
           >
             {copied ? <Check className="w-4 h-4 text-green-500" /> : <Share2 className="w-4 h-4" />}
-            {copied ? 'Copied!' : 'Share Avatar Card'}
+            {copied ? 'Copied!' : 'Share'}
           </Button>
         </div>
       </DialogContent>
