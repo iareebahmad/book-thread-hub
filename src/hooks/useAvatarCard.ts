@@ -65,6 +65,48 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
     description: "A social butterfly who brings readers together. Your high engagement shows your passion for building community and sharing ideas.",
     traits: ["Social", "Engaging", "Leader"]
   },
+  // Adventure lovers
+  adventure_seeker: {
+    name: "Marco Explorer",
+    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop",
+    description: "A bold adventurer who craves thrilling journeys. Your taste for adventure books reflects your restless spirit and hunger for new experiences.",
+    traits: ["Bold", "Energetic", "Fearless"]
+  },
+  // Literary fiction readers
+  literary_artist: {
+    name: "Ophelia Prose",
+    image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=400&fit=crop",
+    description: "A connoisseur of beautiful writing and deep themes. Your appreciation for literary fiction shows your refined taste and love for artful storytelling.",
+    traits: ["Thoughtful", "Artistic", "Introspective"]
+  },
+  // Comedy/Humor fans
+  comedy_jester: {
+    name: "Charlie Laughmore",
+    image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop",
+    description: "A joyful soul who finds humor in everything. Your love for comedic reads shows your positive outlook and ability to find light in any situation.",
+    traits: ["Witty", "Cheerful", "Lighthearted"]
+  },
+  // Young Adult enthusiasts
+  young_adult_hero: {
+    name: "Zara Brave",
+    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop",
+    description: "A spirited champion of coming-of-age stories. Your love for YA books shows your youthful heart and belief in growth and transformation.",
+    traits: ["Youthful", "Hopeful", "Resilient"]
+  },
+  // Poetry lovers
+  poetry_muse: {
+    name: "Luna Verse",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+    description: "A soul touched by the rhythm of words. Your affinity for poetry reveals your sensitivity to beauty and emotional depth.",
+    traits: ["Poetic", "Sensitive", "Expressive"]
+  },
+  // Memoir/Autobiography readers
+  memoir_chronicler: {
+    name: "James Journey",
+    image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=400&fit=crop",
+    description: "A seeker of authentic human experiences. Your love for memoirs shows your empathy and desire to understand diverse life stories.",
+    traits: ["Empathetic", "Insightful", "Authentic"]
+  },
   // Default/Balanced reader
   balanced_reader: {
     name: "Phoenix Reader",
@@ -87,6 +129,17 @@ const GENRE_MAPPING: Record<string, string> = {
   'historical fiction': 'time_traveler',
   'history': 'time_traveler',
   'biography': 'knowledge_seeker',
+  'adventure': 'adventure_seeker',
+  'action': 'adventure_seeker',
+  'literary fiction': 'literary_artist',
+  'classics': 'literary_artist',
+  'comedy': 'comedy_jester',
+  'humor': 'comedy_jester',
+  'young adult': 'young_adult_hero',
+  'ya': 'young_adult_hero',
+  'poetry': 'poetry_muse',
+  'memoir': 'memoir_chronicler',
+  'autobiography': 'memoir_chronicler',
 };
 
 export const useAvatarCard = (userId: string | undefined) => {
