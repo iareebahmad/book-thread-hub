@@ -41,6 +41,14 @@ export const Navbar = () => {
               <Library className="w-6 h-6" />
             </Button>
 
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate('/my-profile')}
+            >
+              <User className="w-6 h-6" />
+            </Button>
+
             <NotificationBell />
 
             <DropdownMenu>

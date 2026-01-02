@@ -2,15 +2,48 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAvatarCard } from '@/hooks/useAvatarCard';
-import { Sparkles, User } from 'lucide-react';
+import { Sparkles, Share2, Check, Copy } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from '@/hooks/use-toast';
 
 interface AvatarCardDialogProps {
   userId: string;
   showTrigger?: boolean;
+  username?: string;
 }
 
-export const AvatarCardDialog = ({ userId, showTrigger = true }: AvatarCardDialogProps) => {
+export const AvatarCardDialog = ({ userId, showTrigger = true, username }: AvatarCardDialogProps) => {
   const { character, loading } = useAvatarCard(userId);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const shareText = `🌟 My BookThreads Avatar: ${character?.name}\n\n"${character?.description}"\n\nTraits: ${character?.traits.join(', ')}\n\nDiscover your reading personality at BookThreads!`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `My BookThreads Avatar: ${character?.name}`,
+          text: shareText,
+          url: window.location.origin,
+        });
+      } catch (err) {
+        // User cancelled or share failed, fallback to copy
+        copyToClipboard(shareText);
+      }
+    } else {
+      copyToClipboard(shareText);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    toast({
+      title: "Copied to clipboard!",
+      description: "Share your avatar card with friends.",
+    });
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   if (loading) {
     return showTrigger ? (
@@ -37,7 +70,7 @@ export const AvatarCardDialog = ({ userId, showTrigger = true }: AvatarCardDialo
         <DialogHeader>
           <DialogTitle className="text-center text-xl font-serif flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            Your Reading Avatar
+            {username ? `${username}'s Reading Avatar` : 'Your Reading Avatar'}
           </DialogTitle>
         </DialogHeader>
         
@@ -84,6 +117,16 @@ export const AvatarCardDialog = ({ userId, showTrigger = true }: AvatarCardDialo
           <p className="text-muted-foreground text-sm leading-relaxed px-2">
             {character.description}
           </p>
+
+          {/* Share Button */}
+          <Button 
+            onClick={handleShare} 
+            variant="outline" 
+            className="gap-2 mt-2 border-primary/30 hover:bg-primary/10"
+          >
+            {copied ? <Check className="w-4 h-4 text-green-500" /> : <Share2 className="w-4 h-4" />}
+            {copied ? 'Copied!' : 'Share Avatar Card'}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
