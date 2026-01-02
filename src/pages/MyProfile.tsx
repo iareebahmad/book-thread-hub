@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { User, BookOpen, ThumbsUp, MessageSquare } from 'lucide-react';
 import { UserBadge } from '@/components/UserBadge';
+import { AvatarCardDialog, AvatarCharacterName } from '@/components/AvatarCardDialog';
 
 interface UserProfile {
   username: string;
@@ -129,15 +130,19 @@ const MyProfile = () => {
                 <div className="flex items-center justify-center md:justify-start gap-3 flex-wrap mb-2">
                   <h1 className="text-3xl font-bold">{profile?.username}</h1>
                   {user && <UserBadge userId={user.id} showLabel />}
+                  {user && <AvatarCharacterName userId={user.id} />}
                 </div>
                 {profile?.bio && (
                   <p className="text-muted-foreground mb-3">{profile.bio}</p>
                 )}
-                {profile?.favorite_genre && (
-                  <Badge variant="secondary" className="mb-3">
-                    Loves {profile.favorite_genre}
-                  </Badge>
-                )}
+                <div className="flex items-center gap-2 flex-wrap mb-3">
+                  {profile?.favorite_genre && (
+                    <Badge variant="secondary">
+                      Loves {profile.favorite_genre}
+                    </Badge>
+                  )}
+                  {user && <AvatarCardDialog userId={user.id} />}
+                </div>
                 
                 <div className="flex justify-center md:justify-start gap-6 text-sm">
                   <button 

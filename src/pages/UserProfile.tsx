@@ -12,6 +12,7 @@ import { useFollow } from '@/hooks/useFollow';
 import { FollowersList } from '@/components/FollowersList';
 import { BookFlameButton } from '@/components/BookFlameButton';
 import { UserBadge } from '@/components/UserBadge';
+import { AvatarCharacterName } from '@/components/AvatarCardDialog';
 
 interface UserProfile {
   id: string;
@@ -160,6 +161,7 @@ const UserProfile = () => {
               <div className="flex items-center gap-3 flex-wrap">
                 <h1 className="text-3xl font-serif font-bold">@{profile.username}</h1>
                 <UserBadge userId={profile.id} showLabel />
+                <AvatarCharacterName userId={profile.id} />
               </div>
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
