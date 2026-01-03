@@ -3,40 +3,31 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Users, MessageCircle, Sparkles } from "lucide-react";
+import { BookOpen, Users, MessageCircle, Sparkles, ArrowLeft, TrendingUp, Award, BookMarked } from "lucide-react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [showAuthForm, setShowAuthForm] = useState(false);
-  const [defaultTab, setDefaultTab] = useState<"signin" | "signup">("signin");
+  const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
 
   const { signUp, signIn, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Redirect authenticated user
   useEffect(() => {
     if (user) navigate("/");
   }, [user, navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!username.trim()) {
-      toast({
-        title: "Username required",
-        description: "Please enter a username.",
-        variant: "destructive",
-      });
+      toast({ title: "Username required", description: "Please enter a username.", variant: "destructive" });
       return;
     }
-
     const { error } = await signUp(email, password, username);
     if (error) {
       toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
@@ -56,243 +47,331 @@ const Auth = () => {
   };
 
   const handleShowAuth = (tab: "signin" | "signup") => {
-    setDefaultTab(tab);
+    setActiveTab(tab);
     setShowAuthForm(true);
   };
 
-  // Landing Page View
+  // Landing Page
   if (!showAuthForm) {
     return (
-      <div
-        className="relative min-h-screen w-screen flex flex-col overflow-hidden"
-        style={{
-          backgroundImage: "url('/bookbg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
-        {/* Top Right Buttons */}
-        <div className="absolute top-6 right-6 flex gap-3 z-20">
-          <Button
-            onClick={() => navigate("/about")}
-            className="rounded-full px-6 py-2 text-white
-                       border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                       transition-all duration-300
-                       hover:bg-white/20 hover:border-white/70
-                       hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-          >
-            About Us
-          </Button>
-          <Button
-            onClick={() => navigate("/pricing")}
-            className="rounded-full px-6 py-2 text-white
-                       border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                       transition-all duration-300
-                       hover:bg-white/20 hover:border-white/70
-                       hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-          >
-            Pricing
-          </Button>
+      <div className="relative min-h-screen w-screen overflow-hidden bg-background">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        {/* Hero Content */}
-        <div className="relative flex-1 flex flex-col items-center justify-center px-4 z-10">
-          {/* Logo & App Name */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-primary rounded-full mb-6 shadow-lg shadow-black/25">
-              <BookOpen className="w-12 h-12 text-primary-foreground" />
+        {/* Navigation */}
+        <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-6">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 bg-primary rounded-xl shadow-lg shadow-primary/25">
+              <BookOpen className="w-5 h-5 text-primary-foreground" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-4">BookThreads</h1>
-            <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-              Where readers gather to discuss, discover, and share their love for books
-            </p>
+            <span className="text-xl font-serif font-bold text-foreground">BookThreads</span>
           </div>
-
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl">
-            <div className="flex flex-col items-center text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-              <Users className="w-10 h-10 text-primary mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">Join the Community</h3>
-              <p className="text-gray-300 text-sm">Connect with fellow book lovers and share your reading journey</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-              <MessageCircle className="w-10 h-10 text-primary mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">Start Discussions</h3>
-              <p className="text-gray-300 text-sm">Create threads, share opinions, and engage in meaningful conversations</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-              <Sparkles className="w-10 h-10 text-primary mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">Discover Your Avatar</h3>
-              <p className="text-gray-300 text-sm">Get a unique reading avatar based on your genre preferences</p>
-            </div>
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={() => navigate("/about")}
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              About
+            </Button>
+            <Button
+              onClick={() => navigate("/pricing")}
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Pricing
+            </Button>
+            <Button
+              onClick={() => handleShowAuth("signin")}
+              variant="outline"
+              className="rounded-full px-6 border-border/50 hover:bg-secondary"
+            >
+              Login
+            </Button>
+            <Button
+              onClick={() => handleShowAuth("signup")}
+              className="rounded-full px-6 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
+            >
+              Sign Up
+            </Button>
           </div>
+        </nav>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+        {/* Hero Section */}
+        <section className="relative z-10 flex flex-col items-center justify-center px-6 pt-16 pb-24">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm text-primary font-medium">Your Reading Community Awaits</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-center max-w-4xl mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            Where <span className="gradient-text">Readers</span> Connect & <span className="gradient-text">Stories</span> Come Alive
+          </h1>
+          
+          <p className="text-xl text-muted-foreground text-center max-w-2xl mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Join thousands of book lovers discussing their favorite reads, sharing insights, and discovering new literary adventures together.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button
               onClick={() => handleShowAuth("signup")}
               size="lg"
-              className="px-10 py-6 text-lg font-semibold rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105"
+              className="px-10 py-7 text-lg font-semibold rounded-2xl bg-primary hover:bg-primary/90 shadow-xl shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/40"
             >
-              Get Started
+              Get Started Free
             </Button>
             <Button
               onClick={() => handleShowAuth("signin")}
               size="lg"
               variant="outline"
-              className="px-10 py-6 text-lg font-semibold rounded-full text-white border-white/40 bg-white/10 backdrop-blur-md hover:bg-white/20 hover:border-white/70 transition-all duration-300"
+              className="px-10 py-7 text-lg font-semibold rounded-2xl border-border hover:bg-secondary transition-all duration-300"
             >
               Sign In
             </Button>
           </div>
-        </div>
+
+          {/* Stats */}
+          <div className="flex items-center gap-8 mt-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-foreground">10K+</p>
+              <p className="text-sm text-muted-foreground">Readers</p>
+            </div>
+            <div className="w-px h-12 bg-border" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-foreground">500+</p>
+              <p className="text-sm text-muted-foreground">Books Discussed</p>
+            </div>
+            <div className="w-px h-12 bg-border" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-foreground">95%</p>
+              <p className="text-sm text-muted-foreground">Satisfaction</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="relative z-10 px-6 md:px-12 py-24 bg-card/30">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+                The Smartest Way to <span className="gradient-text">Read & Connect</span>
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We've built the perfect platform for book enthusiasts to share their passion
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { icon: Users, title: "Community Driven", desc: "Connect with like-minded readers and expand your literary horizons" },
+                { icon: MessageCircle, title: "Rich Discussions", desc: "Start threads, share opinions, and engage in meaningful book talks" },
+                { icon: Sparkles, title: "Reading Avatar", desc: "Get a unique character based on your reading personality" },
+                { icon: TrendingUp, title: "Trending Books", desc: "Discover what's hot in the reading community right now" },
+                { icon: Award, title: "Earn Badges", desc: "Get recognized for your contributions and reading achievements" },
+                { icon: BookMarked, title: "Track Favorites", desc: "Build your personal library and track books you love" },
+              ].map((feature, i) => (
+                <div
+                  key={i}
+                  className="group p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/30 hover:bg-card transition-all duration-300 hover:-translate-y-1"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="relative z-10 px-6 md:px-12 py-24">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+              Ready to Join the <span className="gradient-text">Reading Revolution</span>?
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Join our growing community of passionate readers. It's free to get started!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                onClick={() => handleShowAuth("signup")}
+                size="lg"
+                className="px-10 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 shadow-xl shadow-primary/30"
+              >
+                Start Reading
+              </Button>
+              <Button
+                onClick={() => navigate("/about")}
+                size="lg"
+                variant="outline"
+                className="px-10 py-6 text-lg rounded-2xl"
+              >
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </section>
 
         {/* Footer */}
-        <div className="relative z-10 text-center py-6 text-gray-400 text-sm">
-          © 2025 BookThreads. All rights reserved.
-        </div>
+        <footer className="relative z-10 px-6 md:px-12 py-8 border-t border-border/50">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <span className="font-serif font-semibold">BookThreads</span>
+            </div>
+            <p className="text-sm text-muted-foreground">© 2025 BookThreads. All rights reserved.</p>
+          </div>
+        </footer>
       </div>
     );
   }
 
-  // Auth Form View
+  // Auth Form
   return (
-    <div
-      className="relative min-h-screen w-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: "url('/bookbg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
-      {/* Top Right Buttons */}
-      <div className="absolute top-6 right-6 flex gap-3 z-20">
-        <Button
-          onClick={() => setShowAuthForm(false)}
-          className="rounded-full px-6 py-2 text-white
-                     border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                     transition-all duration-300
-                     hover:bg-white/20 hover:border-white/70
-                     hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-        >
-          Back
-        </Button>
-        <Button
-          onClick={() => navigate("/about")}
-          className="rounded-full px-6 py-2 text-white
-                     border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                     transition-all duration-300
-                     hover:bg-white/20 hover:border-white/70
-                     hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-        >
-          About Us
-        </Button>
-        <Button
-          onClick={() => navigate("/pricing")}
-          className="rounded-full px-6 py-2 text-white
-                     border border-white/40 bg-white/10 backdrop-blur-md font-medium
-                     transition-all duration-300
-                     hover:bg-white/20 hover:border-white/70
-                     hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-        >
-          Pricing
-        </Button>
+    <div className="relative min-h-screen w-screen flex flex-col items-center justify-center overflow-hidden bg-background">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
-      {/* Auth Box */}
-      <div className="relative w-full max-w-md px-4 z-10">
-        {/* Logo & App Name */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 shadow-lg shadow-black/25">
-            <BookOpen className="w-8 h-8 text-primary-foreground" />
-          </div>
-          <h1 className="text-4xl font-serif font-bold text-white mb-2">BookThreads</h1>
-          <p className="text-gray-200">Where readers gather to discuss</p>
+      {/* Back Button */}
+      <button
+        onClick={() => setShowAuthForm(false)}
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span className="font-medium">Back to Home</span>
+      </button>
+
+      {/* Auth Container */}
+      <div className="relative z-10 w-full max-w-md px-6">
+        {/* Tab Switcher */}
+        <div className="flex rounded-2xl bg-card/50 border border-border/50 p-1.5 mb-8">
+          <button
+            onClick={() => setActiveTab("signin")}
+            className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              activeTab === "signin"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Login
+          </button>
+          <button
+            onClick={() => setActiveTab("signup")}
+            className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              activeTab === "signup"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Sign Up
+          </button>
         </div>
 
-        {/* Auth Card */}
-        <Card className="bg-white/15 backdrop-blur-xl border border-white/10 shadow-2xl">
-          <CardHeader>
-            <CardTitle className="font-serif text-white text-center text-2xl">Welcome</CardTitle>
-            <CardDescription className="text-gray-300 text-center">
-              Sign in or create a new account
-            </CardDescription>
-          </CardHeader>
+        {/* Form Card */}
+        <div className="rounded-3xl bg-card/80 border border-border/50 p-8 backdrop-blur-xl shadow-2xl">
+          {/* Logo */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <div className="flex items-center justify-center w-10 h-10 bg-primary rounded-xl">
+              <BookOpen className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-lg font-serif font-bold text-primary">BookThreads</span>
+          </div>
 
-          <CardContent>
-            <Tabs defaultValue={defaultTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center text-foreground mb-2">
+            {activeTab === "signin" ? "Welcome Back" : "Join BookThreads"}
+          </h1>
+          <p className="text-center text-muted-foreground mb-8">
+            {activeTab === "signin" ? "Sign in to continue your reading journey" : "Create your account to get started"}
+          </p>
 
-              {/* SIGN IN */}
-              <TabsContent value="signin">
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Email</Label>
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Password</Label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full mt-2">Sign In</Button>
-                </form>
-              </TabsContent>
-
-              {/* SIGN UP */}
-              <TabsContent value="signup">
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Username</Label>
-                    <Input
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Email</Label>
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Password</Label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      minLength={6}
-                    />
-                  </div>
-                  <Button type="submit" className="w-full mt-2">Create Account</Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+          {/* Forms */}
+          {activeTab === "signin" ? (
+            <form onSubmit={handleSignIn} className="space-y-5">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-foreground">Email</Label>
+                <Input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="h-12 rounded-xl bg-secondary/50 border-border/50 focus:border-primary"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-foreground">Password</Label>
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="h-12 rounded-xl bg-secondary/50 border-border/50 focus:border-primary"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30"
+              >
+                Sign In
+              </Button>
+            </form>
+          ) : (
+            <form onSubmit={handleSignUp} className="space-y-5">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-foreground">Username</Label>
+                <Input
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  className="h-12 rounded-xl bg-secondary/50 border-border/50 focus:border-primary"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-foreground">Email Address</Label>
+                <Input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="h-12 rounded-xl bg-secondary/50 border-border/50 focus:border-primary"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-foreground">Password</Label>
+                <Input
+                  type="password"
+                  placeholder="At least 6 characters"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="h-12 rounded-xl bg-secondary/50 border-border/50 focus:border-primary"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30"
+              >
+                Create Account
+              </Button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
