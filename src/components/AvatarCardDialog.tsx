@@ -146,9 +146,16 @@ export const AvatarCardDialog = ({ userId, showTrigger = true, username }: Avata
           <p className="text-gray-400 text-sm mb-1">@{displayName}</p>
 
           {/* Character Name */}
-          <h3 className="text-xl font-serif font-bold text-primary mb-3">
+          <h3 className="text-xl font-serif font-bold text-primary mb-1">
             {character.name}
           </h3>
+
+          {/* Book Source */}
+          {'book' in character && (
+            <p className="text-accent text-xs mb-3 italic">
+              from "{(character as any).book}"
+            </p>
+          )}
 
           {/* Traits */}
           <div className="flex gap-2 flex-wrap justify-center mb-3">
