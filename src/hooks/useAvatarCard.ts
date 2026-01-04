@@ -13,7 +13,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Fantasy - Harry Potter
   fantasy_explorer: {
     name: "Harry Potter",
-    image: "https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg",
     description: "The Boy Who Lived! Like Harry, you're drawn to magical worlds and epic adventures. Your love for fantasy reveals a brave heart that believes in the power of friendship and good over evil.",
     traits: ["Brave", "Loyal", "Adventurous"],
     book: "Harry Potter Series"
@@ -21,7 +21,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Romance - Elizabeth Bennet
   romance_poet: {
     name: "Elizabeth Bennet",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/3/33/Keira_Knightley_as_Elizabeth_Bennet.jpg",
     description: "Sharp-witted and independent like Elizabeth Bennet. Your passion for romance reveals your emotional depth, wit, and belief in finding true love on your own terms.",
     traits: ["Witty", "Independent", "Passionate"],
     book: "Pride and Prejudice"
@@ -29,7 +29,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Mystery/Thriller - Nancy Drew
   mystery_detective: {
     name: "Nancy Drew",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/a/a9/Nancy_Drew_Mystery_Stories_Cover_Art.jpg",
     description: "A brilliant amateur sleuth like Nancy Drew! Your love for mysteries shows your sharp analytical mind, keen intuition, and unstoppable curiosity to solve puzzles.",
     traits: ["Clever", "Curious", "Resourceful"],
     book: "Nancy Drew Mystery Series"
@@ -37,7 +37,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Sci-Fi - Paul Atreides
   scifi_voyager: {
     name: "Paul Atreides",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/1/1e/Paul_Atreides_Dune_2021.jpg",
     description: "A visionary leader like Paul Atreides from Dune. Your love for sci-fi reveals your forward-thinking nature and fascination with destiny, power, and the future of humanity.",
     traits: ["Visionary", "Strategic", "Prescient"],
     book: "Dune"
@@ -45,7 +45,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Non-fiction/Self-help - Santiago (The Alchemist)
   knowledge_seeker: {
     name: "Santiago",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c4/TheAlchemist.jpg",
     description: "A seeker of Personal Legend like Santiago. Your preference for wisdom and growth shows your commitment to following your dreams and listening to your heart.",
     traits: ["Dreamer", "Wise", "Persistent"],
     book: "The Alchemist"
@@ -53,7 +53,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Horror - Victor Frankenstein
   shadow_walker: {
     name: "Victor Frankenstein",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Frankenstein%27s_monster_%28Boris_Karloff%29.jpg",
     description: "A boundary-pusher like Victor Frankenstein. Your love for horror shows your courage to explore dark themes and question the limits of human ambition.",
     traits: ["Ambitious", "Intense", "Curious"],
     book: "Frankenstein"
@@ -61,7 +61,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Historical fiction - Jay Gatsby
   time_traveler: {
     name: "Jay Gatsby",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/8/81/Gatsby_1974_redford.jpg",
     description: "A dreamer of the past like Jay Gatsby. Your love for historical fiction shows your romantic idealism and appreciation for the grandeur of bygone eras.",
     traits: ["Romantic", "Ambitious", "Mysterious"],
     book: "The Great Gatsby"
@@ -69,7 +69,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Adventure - Julian from Famous Five
   adventure_seeker: {
     name: "Julian",
-    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/5/59/Famous_Five_01_-_Five_on_a_Treasure_Island_%28front_cover%29.jpg",
     description: "A natural leader like Julian from The Famous Five. Your taste for adventure reflects your bold spirit, sense of responsibility, and hunger for thrilling outdoor escapades.",
     traits: ["Bold", "Responsible", "Adventurous"],
     book: "The Famous Five"
@@ -77,7 +77,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Literary fiction - Atticus Finch
   literary_artist: {
     name: "Atticus Finch",
-    image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/10/Gregory_Peck_1948.jpg",
     description: "A moral compass like Atticus Finch. Your appreciation for literary fiction shows your thoughtful nature and commitment to justice and understanding.",
     traits: ["Wise", "Compassionate", "Principled"],
     book: "To Kill a Mockingbird"
@@ -85,7 +85,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Comedy/Humor - Don Quixote
   comedy_jester: {
     name: "Don Quixote",
-    image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Honore_Daumier_017_%28Don_Quixote%29.jpg",
     description: "An idealistic dreamer like Don Quixote! Your love for humor shows your ability to find joy in absurdity and your belief that imagination can change the world.",
     traits: ["Idealistic", "Humorous", "Imaginative"],
     book: "Don Quixote"
@@ -93,7 +93,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Young Adult - Katniss Everdeen
   young_adult_hero: {
     name: "Katniss Everdeen",
-    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/3/39/Katniss_Everdeen.jpg",
     description: "A fierce survivor like Katniss Everdeen. Your love for YA shows your rebellious spirit, protective nature, and belief in fighting for what's right.",
     traits: ["Fierce", "Protective", "Resilient"],
     book: "The Hunger Games"
@@ -101,7 +101,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Poetry - Rumi
   poetry_muse: {
     name: "Rumi",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Maulana_Rumi.jpg",
     description: "A soul touched by divine words like Rumi. Your affinity for poetry reveals your deep spirituality, sensitivity to beauty, and quest for transcendent love.",
     traits: ["Spiritual", "Poetic", "Loving"],
     book: "Rumi's Poetry Collections"
@@ -109,7 +109,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Memoir/Autobiography - Anne Frank
   memoir_chronicler: {
     name: "Anne Frank",
-    image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/75/Anne_Frank_passport_photo%2C_May_1942.jpg",
     description: "A hopeful chronicler like Anne Frank. Your love for memoirs shows your deep empathy, belief in humanity's goodness, and appreciation for authentic stories.",
     traits: ["Hopeful", "Empathetic", "Reflective"],
     book: "The Diary of a Young Girl"
@@ -117,7 +117,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Crime - Sherlock Holmes
   crime_solver: {
     name: "Sherlock Holmes",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Sherlock_Holmes_Portrait_Paget.jpg",
     description: "The world's greatest detective! Like Sherlock Holmes, you possess exceptional observational skills and a brilliant deductive mind that craves intellectual challenges.",
     traits: ["Brilliant", "Observant", "Logical"],
     book: "Sherlock Holmes Series"
@@ -125,7 +125,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Community champion - Gandalf
   community_champion: {
     name: "Gandalf",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/e/e9/Gandalf600ppx.jpg",
     description: "A wise guide like Gandalf! Your high engagement shows your passion for bringing readers together and guiding others on their literary journeys.",
     traits: ["Wise", "Inspiring", "Leader"],
     book: "The Lord of the Rings"
@@ -133,7 +133,7 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
   // Default - Hermione Granger
   balanced_reader: {
     name: "Hermione Granger",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/en/d/d3/Hermione_Granger_poster.jpg",
     description: "A voracious reader like Hermione Granger! Your diverse reading habits show your incredible thirst for knowledge and ability to find wisdom in every genre.",
     traits: ["Brilliant", "Studious", "Loyal"],
     book: "Harry Potter Series"

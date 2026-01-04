@@ -68,8 +68,7 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(180deg, rgba(18, 19, 24, 0.95), rgba(20, 22, 28, 0.95)), 
-                url('/bookbg.jpg') center/cover fixed;
+    background: linear-gradient(160deg, hsl(225 12% 6%) 0%, hsl(225 10% 10%) 50%, hsl(220 15% 8%) 100%);
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
