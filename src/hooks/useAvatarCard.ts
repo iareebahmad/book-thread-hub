@@ -265,6 +265,208 @@ const AVATAR_CHARACTERS: Record<string, AvatarCharacter> = {
     traits: ["Scholarly", "Quick-thinking", "Curious"],
     book: "The Da Vinci Code"
   },
+  // Gothic/Dark Romance
+  gothic_romantic: {
+    name: "Heathcliff",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Wuthering_Heights_1939_Olivier.jpg",
+    description: "A passionate soul like Heathcliff! Your dark romantic nature reveals intense emotions and a love that transcends conventional boundaries.",
+    traits: ["Passionate", "Intense", "Brooding"],
+    book: "Wuthering Heights"
+  },
+  gothic_heroine: {
+    name: "Catherine Earnshaw",
+    image: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Emily_Bront%C3%AB_by_Patrick_Branwell_Bront%C3%AB_restored.jpg",
+    description: "A wild spirit like Catherine! Your reading taste reflects your fierce independence and connection to nature's raw power.",
+    traits: ["Wild", "Passionate", "Free-spirited"],
+    book: "Wuthering Heights"
+  },
+  // Classic Literature
+  classic_gentleman: {
+    name: "Mr. Darcy",
+    image: "https://upload.wikimedia.org/wikipedia/en/b/b3/Colin_Firth_Mr_Darcy.jpg",
+    description: "A proud but good-hearted soul like Mr. Darcy! Your literary taste shows depth beneath a reserved exterior.",
+    traits: ["Proud", "Loyal", "Honorable"],
+    book: "Pride and Prejudice"
+  },
+  classic_dreamer: {
+    name: "Emma Bovary",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Madame_Bovary_1857.jpg",
+    description: "A romantic idealist like Emma Bovary! Your taste reveals a longing for beauty and passion beyond ordinary life.",
+    traits: ["Romantic", "Dreamer", "Passionate"],
+    book: "Madame Bovary"
+  },
+  // Russian Literature
+  russian_soul: {
+    name: "Raskolnikov",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/78/Dostoevsky_1872.jpg",
+    description: "A complex thinker like Raskolnikov! Your reading reveals deep philosophical questioning and moral exploration.",
+    traits: ["Philosophical", "Complex", "Intense"],
+    book: "Crime and Punishment"
+  },
+  russian_prince: {
+    name: "Prince Myshkin",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Dostoevsky_The_Idiot_cover.jpg",
+    description: "A pure soul like Prince Myshkin! Your literary taste reflects innocence, compassion, and seeing good in everyone.",
+    traits: ["Innocent", "Compassionate", "Pure"],
+    book: "The Idiot"
+  },
+  russian_aristocrat: {
+    name: "Anna Karenina",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Anna_Karenina_1877_cover.jpg",
+    description: "A passionate aristocrat like Anna Karenina! Your reading taste reveals deep emotions and tragic beauty.",
+    traits: ["Passionate", "Tragic", "Beautiful"],
+    book: "Anna Karenina"
+  },
+  // Magical Realism
+  magical_realist: {
+    name: "Remedios the Beauty",
+    image: "https://upload.wikimedia.org/wikipedia/en/a/a9/Cien_a%C3%B1os_de_soledad_%28book_cover%2C_1967%29.jpg",
+    description: "An ethereal being like Remedios! Your taste for magical realism shows appreciation for wonder in everyday life.",
+    traits: ["Ethereal", "Innocent", "Magical"],
+    book: "One Hundred Years of Solitude"
+  },
+  // Japanese Literature
+  japanese_wanderer: {
+    name: "Musashi Miyamoto",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/72/Miyamoto_Musashi_Self-Portrait.jpg",
+    description: "A disciplined warrior like Musashi! Your reading reveals dedication to mastery and the way of self-improvement.",
+    traits: ["Disciplined", "Wise", "Warrior"],
+    book: "Musashi"
+  },
+  japanese_prince: {
+    name: "Prince Genji",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Tosa_Mitsuoki_-_Genji_monogatari.jpg",
+    description: "An aesthetic soul like Prince Genji! Your taste reveals appreciation for beauty, art, and refined emotions.",
+    traits: ["Aesthetic", "Romantic", "Cultured"],
+    book: "The Tale of Genji"
+  },
+  // American Classics
+  american_captain: {
+    name: "Captain Ahab",
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/36/Moby_Dick_p510_illustration.jpg",
+    description: "An obsessive seeker like Captain Ahab! Your reading reveals determination and pursuit of the impossible.",
+    traits: ["Obsessive", "Determined", "Intense"],
+    book: "Moby Dick"
+  },
+  american_rebel: {
+    name: "Huckleberry Finn",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/61/Huckleberry_Finn_book.JPG",
+    description: "A free spirit like Huck Finn! Your taste reveals independence, moral courage, and love for adventure.",
+    traits: ["Free-spirited", "Moral", "Adventurous"],
+    book: "Adventures of Huckleberry Finn"
+  },
+  // Epic Heroes
+  epic_warrior: {
+    name: "Achilles",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Achilles_and_Penthesilea_fighting%2C_Staatliche_Antikensammlungen_8705.jpg",
+    description: "A legendary warrior like Achilles! Your taste for epics shows love for heroism, glory, and fateful destinies.",
+    traits: ["Heroic", "Proud", "Legendary"],
+    book: "The Iliad"
+  },
+  epic_voyager: {
+    name: "Odysseus",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/10/Arnold_B%C3%B6cklin_-_Odysseus_and_Polyphemus.jpg",
+    description: "A cunning voyager like Odysseus! Your reading reveals cleverness, resilience, and longing for home.",
+    traits: ["Cunning", "Resilient", "Adventurous"],
+    book: "The Odyssey"
+  },
+  // Modern Dystopia
+  dystopia_rebel: {
+    name: "Winston Smith",
+    image: "https://upload.wikimedia.org/wikipedia/en/c/c3/1984first.jpg",
+    description: "A truth-seeker like Winston Smith! Your dystopian taste reveals concern for freedom and truth in society.",
+    traits: ["Rebellious", "Thoughtful", "Brave"],
+    book: "1984"
+  },
+  dystopia_savage: {
+    name: "Bernard Marx",
+    image: "https://upload.wikimedia.org/wikipedia/en/6/62/BraveNewWorld_FirstEdition.jpg",
+    description: "An outsider like Bernard Marx! Your reading reveals questioning of societal norms and search for authenticity.",
+    traits: ["Outsider", "Questioning", "Sensitive"],
+    book: "Brave New World"
+  },
+  // Fantasy Additional
+  fantasy_queen: {
+    name: "Daenerys Targaryen",
+    image: "https://upload.wikimedia.org/wikipedia/en/0/0d/Daenerys_Targaryen_with_Dragon-Emilia_Clarke.jpg",
+    description: "A mother of dragons like Daenerys! Your fantasy taste reveals ambition, strength, and desire for justice.",
+    traits: ["Ambitious", "Powerful", "Liberator"],
+    book: "A Song of Ice and Fire"
+  },
+  fantasy_knight: {
+    name: "Aragorn",
+    image: "https://upload.wikimedia.org/wikipedia/en/3/35/Aragorn300ppx.jpg",
+    description: "A rightful king like Aragorn! Your fantasy taste shows nobility, courage, and readiness to accept destiny.",
+    traits: ["Noble", "Brave", "Leader"],
+    book: "The Lord of the Rings"
+  },
+  fantasy_assassin: {
+    name: "Kvothe",
+    image: "https://upload.wikimedia.org/wikipedia/en/5/56/TheNameoftheWind_cover.jpg",
+    description: "A legendary figure like Kvothe! Your fantasy taste reveals love for music, magic, and becoming a legend.",
+    traits: ["Talented", "Mysterious", "Legendary"],
+    book: "The Name of the Wind"
+  },
+  // Humor Additional
+  humor_eccentric: {
+    name: "Ignatius J. Reilly",
+    image: "https://upload.wikimedia.org/wikipedia/en/6/66/ConfederacyOfDunces.jpg",
+    description: "A magnificent eccentric like Ignatius! Your humor taste reveals appreciation for absurdity and unique perspectives.",
+    traits: ["Eccentric", "Intellectual", "Unique"],
+    book: "A Confederacy of Dunces"
+  },
+  // Gothic Horror
+  gothic_count: {
+    name: "Count Dracula",
+    image: "https://upload.wikimedia.org/wikipedia/en/c/c8/Bela_Lugosi_as_Dracula_%28Universal%29.jpg",
+    description: "A lord of darkness like Dracula! Your gothic taste reveals fascination with immortality and the supernatural.",
+    traits: ["Mysterious", "Powerful", "Immortal"],
+    book: "Dracula"
+  },
+  gothic_doctor: {
+    name: "Dr. Jekyll",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/78/Dr_Jekyll_and_Mr_Hyde_poster_edit2.jpg",
+    description: "A dual nature like Dr. Jekyll! Your reading reveals fascination with humanity's light and dark sides.",
+    traits: ["Dual", "Scientific", "Tragic"],
+    book: "The Strange Case of Dr Jekyll and Mr Hyde"
+  },
+  // Children's Additional
+  childrens_wizard: {
+    name: "Mary Poppins",
+    image: "https://upload.wikimedia.org/wikipedia/en/e/e9/Mary_Poppins5.jpg",
+    description: "Practically perfect like Mary Poppins! Your reading reveals love for magic hidden in ordinary life.",
+    traits: ["Magical", "Proper", "Mysterious"],
+    book: "Mary Poppins"
+  },
+  childrens_bear: {
+    name: "Winnie-the-Pooh",
+    image: "https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png",
+    description: "A bear of very little brain like Pooh! Your taste reveals simple wisdom, friendship, and love for honey.",
+    traits: ["Simple", "Loyal", "Wise"],
+    book: "Winnie-the-Pooh"
+  },
+  childrens_orphan: {
+    name: "Anne Shirley",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Anne_of_Green_Gables_title_page.jpg",
+    description: "An imaginative spirit like Anne! Your reading reveals optimism, creativity, and romantic imagination.",
+    traits: ["Imaginative", "Optimistic", "Spirited"],
+    book: "Anne of Green Gables"
+  },
+  // Science Fiction Additional
+  scifi_android: {
+    name: "R. Daneel Olivaw",
+    image: "https://upload.wikimedia.org/wikipedia/en/8/8e/Robot_series_omnibus_cover.jpg",
+    description: "A faithful robot like Daneel! Your sci-fi taste reveals questions about humanity and artificial life.",
+    traits: ["Logical", "Loyal", "Ethical"],
+    book: "The Robot Series"
+  },
+  scifi_pilot: {
+    name: "Valentine Michael Smith",
+    image: "https://upload.wikimedia.org/wikipedia/en/d/d3/StrangerInAStrangeLand.jpg",
+    description: "A stranger in a strange land like Michael! Your sci-fi taste reveals openness to alien perspectives.",
+    traits: ["Innocent", "Powerful", "Loving"],
+    book: "Stranger in a Strange Land"
+  },
   // Default - Hermione Granger
   balanced_reader: {
     name: "Hermione Granger",
