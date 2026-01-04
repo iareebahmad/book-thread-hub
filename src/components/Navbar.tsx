@@ -96,14 +96,6 @@ export const Navbar = () => {
                 </div>
 
                 <DropdownMenuItem
-                  onClick={() => navigate('/my-profile')}
-                  className="rounded-md cursor-pointer py-2 px-2"
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  My Profile
-                </DropdownMenuItem>
-
-                <DropdownMenuItem
                   onClick={() => navigate('/events')}
                   className="rounded-md cursor-pointer py-2 px-2"
                 >
