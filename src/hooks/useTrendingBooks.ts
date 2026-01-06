@@ -1,16 +1,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-interface Book {
-  id: string;
-  title: string;
-  author: string;
-  cover_url: string | null;
-}
-
 export const useTrendingBooks = () => {
   const [trendingBookIds, setTrendingBookIds] = useState<Set<string>>(new Set());
-  const [trendingBooks, setTrendingBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     fetchTrendingBooks();
@@ -71,32 +63,16 @@ export const useTrendingBooks = () => {
       }
     }
 
-    // Sort and get top trending books
-    const sortedBookIds = Object.entries(bookScores)
+    // Sort and get top 3
+    const sortedBooks = Object.entries(bookScores)
       .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
+      .slice(0, 3)
       .map(([bookId]) => bookId);
 
-    setTrendingBookIds(new Set(sortedBookIds));
-
-    // Fetch book details for trending books
-    if (sortedBookIds.length > 0) {
-      const { data: books } = await supabase
-        .from('books')
-        .select('id, title, author, cover_url')
-        .in('id', sortedBookIds);
-
-      if (books) {
-        // Sort books by their trending rank
-        const sortedBooks = sortedBookIds
-          .map(id => books.find(b => b.id === id))
-          .filter(Boolean) as Book[];
-        setTrendingBooks(sortedBooks);
-      }
-    }
+    setTrendingBookIds(new Set(sortedBooks));
   };
 
   const isTrending = (bookId: string) => trendingBookIds.has(bookId);
 
-  return { isTrending, trendingBookIds, trendingBooks };
+  return { isTrending, trendingBookIds };
 };
