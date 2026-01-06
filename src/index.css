@@ -100,6 +100,72 @@
     }
   }
 
+  /* Staggered animation for grid items */
+  .stagger-animation {
+    animation: staggerFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes staggerFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Book hover tilt effect */
+  .book-tilt {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .book-tilt:hover {
+    transform: translateY(-12px) rotateX(5deg) rotateY(-3deg);
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(45, 130, 255, 0.15);
+  }
+
+  /* Floating animation */
+  .float-animation {
+    animation: floatBook 6s ease-in-out infinite;
+  }
+
+  @keyframes floatBook {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
   /* Modern hover lift with glow */
   .hover-lift {
     transition: var(--transition-smooth);
@@ -127,6 +193,55 @@
   /* Glow effect */
   .glow {
     box-shadow: var(--shadow-glow);
+  }
+
+  /* Book spine effect */
+  .book-spine {
+    position: relative;
+  }
+  
+  .book-spine::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, 
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent)) 100%
+    );
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .book-spine:hover::before {
+    opacity: 1;
+  }
+
+  /* Page flip animation */
+  .page-flip {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page-flip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .page-flip:hover::after {
+    transform: translateX(100%);
   }
 }
 

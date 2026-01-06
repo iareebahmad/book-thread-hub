@@ -44,7 +44,7 @@ export const BookCard = ({ book, isTrending = false }: BookCardProps) => {
 
   return (
     <Card 
-      className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/95 to-card/50 backdrop-blur-xl hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer rounded-3xl"
+      className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/95 to-card/50 backdrop-blur-xl transition-all duration-500 cursor-pointer rounded-3xl book-tilt book-spine page-flip"
       onClick={handleCardClick}
     >
       {/* Trending Badge */}
