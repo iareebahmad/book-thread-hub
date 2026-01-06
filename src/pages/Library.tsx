@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { BookCard } from '@/components/BookCard';
 import { AddBookDialog } from '@/components/AddBookDialog';
 import { Navbar } from '@/components/Navbar';
-import { LibraryBig, Search } from 'lucide-react';
+import { LibraryBig, Search, BookOpen, Sparkles } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 import { useTrendingBooks } from '@/hooks/useTrendingBooks';
@@ -117,8 +117,17 @@ const Library = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-          <LibraryBig className="w-12 h-12 text-primary animate-pulse" />
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)] gap-4">
+          <div className="relative">
+            <LibraryBig className="w-16 h-16 text-primary float-animation" />
+            <Sparkles className="w-6 h-6 text-accent absolute -top-2 -right-2 animate-pulse" />
+          </div>
+          <div className="flex gap-1">
+            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0ms' }} />
+            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '150ms' }} />
+            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '300ms' }} />
+          </div>
+          <p className="text-muted-foreground text-sm">Loading your library...</p>
         </div>
       </div>
     );
@@ -134,30 +143,37 @@ const Library = () => {
 
         {/* Hero Section */}
         <div className="mb-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
-            <p className="text-lg text-muted-foreground">
-              Discover and discuss your favorite books
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
+                  <BookOpen className="w-6 h-6 text-primary" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
+              </div>
+              <p className="text-lg text-muted-foreground">
+                Discover and discuss your favorite books
+              </p>
+            </div>
             <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
           </div>
-
         </div>
 
         {/* Filters Section */}
-        <div className="glass-card p-6 mb-8">
+        <div className="glass-card p-6 mb-10 page-flip">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
               <Input
                 placeholder="Search by title or author..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-12 bg-background/50 border-border/50 focus:border-primary transition-all"
+                className="pl-12 h-12 bg-background/50 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
               />
             </div>
             
             <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-              <SelectTrigger className="h-12 bg-background/50 border-border/50">
+              <SelectTrigger className="h-12 bg-background/50 border-border/50 rounded-xl hover:border-primary/50 transition-colors">
                 <SelectValue placeholder="Filter by genre" />
               </SelectTrigger>
               <SelectContent>
@@ -171,7 +187,7 @@ const Library = () => {
             </Select>
 
             <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
-              <SelectTrigger className="h-12 bg-background/50 border-border/50">
+              <SelectTrigger className="h-12 bg-background/50 border-border/50 rounded-xl hover:border-primary/50 transition-colors">
                 <SelectValue placeholder="Filter by author" />
               </SelectTrigger>
               <SelectContent>
@@ -188,6 +204,7 @@ const Library = () => {
           {/* Active Filters Display */}
           {(searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all') && (
             <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+              <Sparkles className="w-4 h-4 text-primary" />
               <span>Showing {filteredBooks.length} of {books.length} books</span>
             </div>
           )}
@@ -197,10 +214,10 @@ const Library = () => {
         {filteredBooks.length === 0 ? (
           <div className="glass-card p-16 text-center">
             <div className="max-w-md mx-auto space-y-4">
-              <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mx-auto">
-                <LibraryBig className="w-10 h-10 text-muted-foreground" />
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto float-animation">
+                <LibraryBig className="w-12 h-12 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold">No books found</h3>
+              <h3 className="text-2xl font-bold gradient-text">No books found</h3>
               <p className="text-muted-foreground">
                 {searchQuery || selectedGenre !== 'all' || selectedAuthor !== 'all'
                   ? 'Try adjusting your filters to discover more books'
@@ -210,8 +227,14 @@ const Library = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            {filteredBooks.map(book => (
-              <BookCard key={book.id} book={book} isTrending={isTrending(book.id)} />
+            {filteredBooks.map((book, index) => (
+              <div 
+                key={book.id} 
+                className="stagger-animation"
+                style={{ animationDelay: `${Math.min(index * 50, 500)}ms` }}
+              >
+                <BookCard book={book} isTrending={isTrending(book.id)} />
+              </div>
             ))}
           </div>
         )}
