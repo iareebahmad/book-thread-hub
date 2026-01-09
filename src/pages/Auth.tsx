@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Users, MessageCircle, Sparkles, ArrowLeft, TrendingUp, Award, BookMarked, Zap, Globe, Heart } from "lucide-react";
+import { BookOpen, Users, MessageCircle, Sparkles, ArrowLeft, TrendingUp, Award, BookMarked, Zap, Globe, Heart, Library, BookText, Bookmark, Quote, Feather, ScrollText, Glasses, PenTool } from "lucide-react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -61,17 +61,55 @@ const Auth = () => {
           <div className="absolute top-20 left-[10%] w-72 h-72 bg-primary/8 rounded-full blur-3xl animate-pulse" />
           <div className="absolute top-40 right-[15%] w-96 h-96 bg-accent/6 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           <div className="absolute bottom-20 left-[20%] w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+          <div className="absolute bottom-40 right-[10%] w-64 h-64 bg-accent/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }} />
           
-          {/* Floating Book Icons */}
-          <div className="absolute top-32 left-[8%] opacity-10 float-animation">
-            <BookOpen className="w-16 h-16 text-primary" />
+          {/* Floating Book Icons - Left Side */}
+          <div className="absolute top-24 left-[5%] opacity-[0.08] float-animation">
+            <BookOpen className="w-20 h-20 text-primary rotate-[-15deg]" />
           </div>
-          <div className="absolute top-48 right-[12%] opacity-10 float-animation" style={{ animationDelay: '1s' }}>
-            <MessageCircle className="w-12 h-12 text-accent" />
+          <div className="absolute top-[45%] left-[3%] opacity-[0.06] float-animation" style={{ animationDelay: '2.5s' }}>
+            <Library className="w-16 h-16 text-accent rotate-[10deg]" />
           </div>
-          <div className="absolute bottom-32 right-[25%] opacity-10 float-animation" style={{ animationDelay: '2s' }}>
-            <Heart className="w-10 h-10 text-primary" />
+          <div className="absolute bottom-[30%] left-[8%] opacity-[0.07] float-animation" style={{ animationDelay: '4s' }}>
+            <ScrollText className="w-14 h-14 text-primary rotate-[-8deg]" />
           </div>
+          <div className="absolute bottom-20 left-[12%] opacity-[0.05] float-animation" style={{ animationDelay: '1.5s' }}>
+            <Feather className="w-12 h-12 text-accent rotate-[25deg]" />
+          </div>
+          
+          {/* Floating Book Icons - Right Side */}
+          <div className="absolute top-28 right-[6%] opacity-[0.07] float-animation" style={{ animationDelay: '1s' }}>
+            <BookText className="w-18 h-18 text-accent rotate-[12deg]" />
+          </div>
+          <div className="absolute top-[40%] right-[4%] opacity-[0.06] float-animation" style={{ animationDelay: '3.5s' }}>
+            <Quote className="w-14 h-14 text-primary rotate-[-10deg]" />
+          </div>
+          <div className="absolute bottom-[35%] right-[7%] opacity-[0.08] float-animation" style={{ animationDelay: '2s' }}>
+            <Bookmark className="w-16 h-16 text-accent rotate-[5deg]" />
+          </div>
+          <div className="absolute bottom-24 right-[10%] opacity-[0.05] float-animation" style={{ animationDelay: '4.5s' }}>
+            <PenTool className="w-10 h-10 text-primary rotate-[-20deg]" />
+          </div>
+          
+          {/* Floating Book Icons - Center/Scattered */}
+          <div className="absolute top-[20%] left-[25%] opacity-[0.04] float-animation" style={{ animationDelay: '3s' }}>
+            <Glasses className="w-12 h-12 text-accent rotate-[8deg]" />
+          </div>
+          <div className="absolute top-[60%] right-[22%] opacity-[0.05] float-animation" style={{ animationDelay: '1.8s' }}>
+            <BookMarked className="w-14 h-14 text-primary rotate-[-12deg]" />
+          </div>
+          <div className="absolute bottom-[15%] left-[35%] opacity-[0.04] float-animation" style={{ animationDelay: '2.8s' }}>
+            <Heart className="w-10 h-10 text-accent" />
+          </div>
+          <div className="absolute top-[35%] right-[30%] opacity-[0.03] float-animation" style={{ animationDelay: '4.2s' }}>
+            <MessageCircle className="w-12 h-12 text-primary rotate-[15deg]" />
+          </div>
+          
+          {/* Animated book pages floating effect */}
+          <div className="absolute top-[15%] left-[40%] w-8 h-10 bg-foreground/[0.02] rounded-sm rotate-[-25deg] float-animation" style={{ animationDelay: '0.5s' }} />
+          <div className="absolute top-[55%] left-[15%] w-6 h-8 bg-foreground/[0.02] rounded-sm rotate-[20deg] float-animation" style={{ animationDelay: '2.2s' }} />
+          <div className="absolute bottom-[40%] right-[18%] w-7 h-9 bg-foreground/[0.02] rounded-sm rotate-[-15deg] float-animation" style={{ animationDelay: '3.8s' }} />
+          <div className="absolute top-[70%] right-[35%] w-5 h-7 bg-foreground/[0.02] rounded-sm rotate-[30deg] float-animation" style={{ animationDelay: '1.2s' }} />
         </div>
 
         {/* Navigation */}
