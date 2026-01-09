@@ -244,7 +244,7 @@ const Auth = () => {
                         <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent border-2 border-background" />
                       ))}
                     </div>
-                    <span className="text-sm text-muted-foreground">Join 10K+ readers</span>
+                    <span className="text-sm text-muted-foreground">Join the Community</span>
                   </div>
                 </div>
               </div>
