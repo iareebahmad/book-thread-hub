@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
 /* BookThreads Design System - Calm + Trustworthy Blue Theme */
 
 @layer base {
