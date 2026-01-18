@@ -179,27 +179,9 @@ const Library = () => {
         {/* Active Event Banner */}
         <ActiveEventBanner />
 
-        {/* Hero Section with User Avatar */}
-        <div className="mb-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
-            {/* Left Side - Title */}
-            <div className="space-y-2">
-              <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
-              {profile && (
-                <p className="text-muted-foreground">
-                  Welcome back, <span className="text-primary font-medium">{profile.username}</span>
-                </p>
-              )}
-              <p className="text-sm md:text-base text-muted-foreground max-w-md">
-                Discover, discuss, and dive into your favorite books
-              </p>
-            </div>
-
-            {/* Right Side - Add Book */}
-            <div className="flex items-center">
-              <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
-            </div>
-          </div>
+        {/* Add Book Button */}
+        <div className="flex justify-end mb-6">
+          <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
         </div>
 
         {/* Search and Filters Section */}
