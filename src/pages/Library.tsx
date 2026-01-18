@@ -182,38 +182,17 @@ const Library = () => {
         {/* Hero Section with User Avatar */}
         <div className="mb-10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
-            {/* Left Side - Title and User Info */}
-            <div className="flex items-start gap-5">
-              {/* User Avatar Card */}
+            {/* Left Side - Title */}
+            <div className="space-y-2">
+              <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
               {profile && (
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-                  <div className="relative p-1 bg-gradient-to-br from-primary to-accent rounded-2xl">
-                    <div className="bg-background rounded-xl p-3">
-                      <Avatar className="w-16 h-16 md:w-20 md:h-20 border-2 border-primary/30">
-                        <AvatarImage src={profile.avatar_url || undefined} />
-                        <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground text-xl font-bold">
-                          {profile.username?.charAt(0).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              <div className="space-y-2">
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
-                  {profile && (
-                    <p className="text-muted-foreground">
-                      Welcome back, <span className="text-primary font-medium">{profile.username}</span>
-                    </p>
-                  )}
-                </div>
-                <p className="text-sm md:text-base text-muted-foreground max-w-md">
-                  Discover, discuss, and dive into your favorite books
+                <p className="text-muted-foreground">
+                  Welcome back, <span className="text-primary font-medium">{profile.username}</span>
                 </p>
-              </div>
+              )}
+              <p className="text-sm md:text-base text-muted-foreground max-w-md">
+                Discover, discuss, and dive into your favorite books
+              </p>
             </div>
 
             {/* Right Side - Add Book */}
