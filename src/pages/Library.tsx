@@ -202,18 +202,13 @@ const Library = () => {
               )}
               
               <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="hidden md:flex p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
-                    <BookOpen className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
-                    {profile && (
-                      <p className="text-muted-foreground">
-                        Welcome back, <span className="text-primary font-medium">{profile.username}</span>
-                      </p>
-                    )}
-                  </div>
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-bold gradient-text">Library</h1>
+                  {profile && (
+                    <p className="text-muted-foreground">
+                      Welcome back, <span className="text-primary font-medium">{profile.username}</span>
+                    </p>
+                  )}
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground max-w-md">
                   Discover, discuss, and dive into your favorite books
@@ -221,17 +216,8 @@ const Library = () => {
               </div>
             </div>
 
-            {/* Right Side - Stats and Add Book */}
-            <div className="flex flex-wrap items-center gap-3">
-              {/* Quick Stats */}
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-card/60 border border-border/50 backdrop-blur-sm">
-                <BookMarked className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">{books.length} Books</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-card/60 border border-border/50 backdrop-blur-sm">
-                <TrendingUp className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">{genres.length} Genres</span>
-              </div>
+            {/* Right Side - Add Book */}
+            <div className="flex items-center">
               <AddBookDialog onBookAdded={fetchBooks} genres={genres} />
             </div>
           </div>
